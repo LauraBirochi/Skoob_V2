@@ -1,0 +1,340 @@
+
+    :root{
+      --skoob-red:#3E5327;
+      --accent:#3E5327;
+      --muted:#6c757d;
+      --bg:#f8fdf6;
+    }
+
+    html,body{
+      height:100%;
+    }
+
+    body{
+      font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+      margin:0;
+      background:#fff;
+      color:#111;
+      display:flex;
+      flex-direction:column;
+      min-height:100vh;
+    }
+
+    /* Offcanvas estilizado com gradiente, ícones e efeitos de hover */
+    .sk-offcanvas .offcanvas-header {
+      background: linear-gradient(135deg, #4C6333 0%, #3E5327 100%);
+      color: #fff;
+      padding: 1.5rem;
+      border-bottom: 3px solid #BFD8B2;
+    }
+
+    .sk-offcanvas .offcanvas-title {
+      font-weight: 700;
+      font-size: 1.4rem;
+      letter-spacing: 0.5px;
+    }
+
+    .sk-offcanvas .btn-close {
+      filter: brightness(0) invert(1);
+      opacity: 0.8;
+    }
+
+    .sk-offcanvas .btn-close:hover {
+      opacity: 1;
+    }
+
+    .sk-offcanvas .offcanvas-body {
+      background: linear-gradient(180deg, #BFD8B2 0%, #d4e8cc 100%);
+      padding: 1.5rem 0;
+    }
+
+    /* Estilizando links do menu com ícones e hover elegante */
+    .sk-offcanvas .nav-link {
+      color: #2a3d1a;
+      font-weight: 600;
+      padding: 0.85rem 1.5rem;
+      border-radius: 8px;
+      margin: 0.25rem 1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .sk-offcanvas .nav-link i {
+      font-size: 1.1rem;
+      width: 24px;
+      text-align: center;
+      transition: transform 0.3s ease;
+    }
+
+    .sk-offcanvas .nav-link::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0;
+      height: 100%;
+      width: 4px;
+      background: var(--skoob-red);
+      transform: scaleY(0);
+      transition: transform 0.3s ease;
+    }
+
+    .sk-offcanvas .nav-link:hover {
+      background: rgba(62, 83, 39, 0.12);
+      color: var(--skoob-red);
+      transform: translateX(4px);
+    }
+
+    .sk-offcanvas .nav-link:hover::before {
+      transform: scaleY(1);
+    }
+
+    .sk-offcanvas .nav-link:hover i {
+      transform: scale(1.15);
+    }
+
+    /* Seção de categorias com estilo especial */
+    .offcanvas-section-title {
+      color: #2a3d1a;
+      font-weight: 700;
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      padding: 1rem 1.5rem 0.5rem;
+      margin-top: 0.5rem;
+      opacity: 0.7;
+    }
+
+    .offcanvas-divider {
+      border: 0;
+      height: 1px;
+      background: rgba(62, 83, 39, 0.15);
+      margin: 1rem 1.5rem;
+    }
+
+    /* Links de categoria com ícones personalizados */
+    .category-link {
+      position: relative;
+    }
+
+    .category-link::after {
+      content: '→';
+      position: absolute;
+      right: 1.5rem;
+      opacity: 0;
+      transform: translateX(-10px);
+      transition: all 0.3s ease;
+    }
+
+    .category-link:hover::after {
+      opacity: 1;
+      transform: translateX(0);
+    }
+
+    /* Botão do menu */
+    .btn-primary {
+      background-color: #3E5327;
+      border-color: #BFD8B2;
+    }
+
+    .btn-primary:hover,
+    .btn-primary:focus {
+      background-color: #4C6333;
+      border-color: #BFD8B2;
+    }
+
+    .btn-primary:active {
+      background-color: #BFD8B2 !important;
+      border-color: #BFD8B2 !important;
+    }
+
+    /* HEADER */
+    .sk-header{
+      background:#BFD8B2;
+      box-shadow: 0 1px 8px rgba(0,0,0,0.06);
+      padding:1.0rem 0.75rem;
+      position: relative;
+    }
+
+    .sk-header .center-logo{
+      position:absolute;
+      left:50%;
+      top:50%;
+      transform:translate(-50%,-50%);
+      pointer-events:none;
+    }
+
+    .sk-header .center-logo img{
+      width:180px;
+      max-width:45vw;
+      pointer-events:none;
+    }
+
+    .nav-right i{
+      color:var(--skoob-red);
+      transition:transform 0.2s ease;
+    }
+
+    .nav-right i:hover{
+      transform:scale(1.1);
+      color:#4C6333;
+    }
+
+    /* Redesenhando o formulário de login com design mais limpo e moderno */
+    .main-content {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(135deg, #f8fdf6 0%, #e8f5e3 100%);
+      padding: 2rem 1rem;
+    }
+
+    .login-container {
+      background: #fff;
+      border-radius: 24px;
+      box-shadow: 0 10px 40px rgba(62, 83, 39, 0.1);
+      padding: 2rem 2rem;
+      width: 100%;
+      max-width: 420px;
+    }
+
+    .login-header {
+      text-align: center;
+      margin-bottom: 1.5rem;
+    }
+
+    .login-icon {
+      width: 60px;
+      height: 60px;
+      background: linear-gradient(135deg, #4C6333 0%, #3E5327 100%);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 1rem;
+      box-shadow: 0 4px 15px rgba(62, 83, 39, 0.25);
+    }
+
+    .login-icon i {
+      color: #fff;
+      font-size: 1.75rem;
+    }
+
+    .login-title {
+      font-size: 1.75rem;
+      font-weight: 700;
+      color: #2a3d1a;
+      margin-bottom: 0.35rem;
+      letter-spacing: -0.5px;
+    }
+
+    .login-subtitle {
+      color: #6c757d;
+      font-size: 0.95rem;
+    }
+
+    .form-group {
+      margin-bottom: 1.2rem;
+    }
+
+    .form-label {
+      display: block;
+      font-weight: 600;
+      color: #2a3d1a;
+      margin-bottom: 0.5rem;
+      font-size: 0.9rem;
+    }
+
+    .form-input {
+      width: 100%;
+      padding: 0.8rem 1rem;
+      border: 2px solid #e0e0e0;
+      border-radius: 12px;
+      font-size: 0.95rem;
+      transition: all 0.3s ease;
+      background: #fafafa;
+    }
+
+    .form-input:focus {
+      outline: none;
+      border-color: #4C6333;
+      background: #fff;
+      box-shadow: 0 0 0 4px rgba(76, 99, 51, 0.1);
+    }
+
+    .form-input::placeholder {
+      color: #aaa;
+    }
+
+    .btn-login {
+      width: 100%;
+      padding: 0.85rem;
+      background: linear-gradient(135deg, #4C6333 0%, #3E5327 100%);
+      color: #fff;
+      border: none;
+      border-radius: 12px;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      margin-top: 0.5rem;
+    }
+
+    .btn-login:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(62, 83, 39, 0.3);
+    }
+
+    .btn-login:active {
+      transform: translateY(0);
+    }
+
+    .login-footer {
+      text-align: center;
+      margin-top: 1.5rem;
+      padding-top: 1.5rem;
+      border-top: 1px solid #e0e0e0;
+    }
+
+    .login-footer p {
+      color: #6c757d;
+      font-size: 0.9rem;
+      margin: 0;
+    }
+
+    .login-footer a {
+      color: #4C6333;
+      font-weight: 600;
+      text-decoration: none;
+      transition: color 0.2s ease;
+    }
+
+    .login-footer a:hover {
+      color: #3E5327;
+      text-decoration: underline;
+    }
+
+    @media (max-width: 480px) {
+      .login-container {
+        padding: 1.5rem 1.25rem;
+      }
+      
+      .login-title {
+        font-size: 1.75rem;
+      }
+    }
+
+    /* FOOTER */
+    .sk-footer{
+      background:var(--accent);
+      color:#fff;
+      padding:1rem 0;
+      margin-top:auto;
+      text-align:center;
+    }
+
+    

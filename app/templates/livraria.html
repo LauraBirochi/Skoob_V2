@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Skoob • Estante de Livros</title>
+
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/login.css') }}">
+
+
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<!-- Bootstrap CSS -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/css/bootstrap.min.css" rel="stylesheet">
+
+<!-- Suas fontes -->
+<link href="https://fonts.googleapis.com/css2?family=Momo+Signature&family=Playwrite+HU:wght@100..400&display=swap" rel="stylesheet">
+
+
+<!-- Estilo específico da livraria -->
+<link rel="stylesheet" href="style-livraria.css">
+
+</head>
+
+<body>
+
+<header class="sk-header">
+  <div class="container-fluid d-flex align-items-center position-relative">
+    <div class="nav-left">
+      <button class="btn btn-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#skOffcanvas">
+        <i class="fas fa-bars"></i>
+      </button>
+    </div>
+
+    <div class="center-logo" aria-hidden="true">
+      <img src="./imgs/logo.png" alt="Skoob logo">
+    </div>
+
+    <div class="ms-auto nav-right d-flex align-items-center">
+      <a href="cadastro.html" class="text-decoration-none">
+        <i class="fas fa-user-circle fa-2x" style="color: var(--skoob-red);"></i>
+      </a>
+    </div>
+  </div>
+</header>
+
+<div class="offcanvas offcanvas-start sk-offcanvas" tabindex="-1" id="skOffcanvas">
+  <div class="offcanvas-header">
+    <h5 class="offcanvas-title">Menu da Estante</h5>
+    <button type="button" class="btn-close" data-bs-dismiss="offcanvas"></button>
+  </div>
+  
+  <div class="offcanvas-body">
+    <nav class="nav flex-column">
+      <a class="nav-link"><i class="fas fa-home"></i>Estante Virtual</a>
+      <a class="nav-link"><i class="fas fa-user"></i>Perfil</a>
+      <a class="nav-link"><i class="fas fa-book"></i>Minha Estante</a>
+
+      <hr>
+
+      <div class="category-header">Categorias</div>
+      <a class="nav-link"><i class="fas fa-mask"></i>Suspense</a>
+      <a class="nav-link"><i class="fas fa-heart"></i>Romance</a>
+      <a class="nav-link"><i class="fas fa-dragon"></i>Fantasia</a>
+    </nav>
+  </div>
+</div>
+
+<main class="hero-band">
+  <div class="container page-container">
+
+    <div class="row align-items-center mb-3">
+      <div class="col-md-12 text-center">
+        <h1>Estante de Livros</h1>
+        <p class="text-muted">Confira os livros mais bem avaliados pelos leitores.</p>
+      </div>
+    </div>
+
+    <section class="mb-5">
+      <div class="category-banner">Suspense</div>
+
+      <div id="carouselSuspense" class="carousel slide" data-bs-ride="false">
+        <div class="carousel-inner"></div>
+
+        <button class="carousel-control-prev" type="button" data-bs-target="#carouselSuspense" data-bs-slide="prev">
+          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Anterior</span>
+        </button>
+
+        <button class="carousel-control-next" type="button" data-bs-target="#carouselSuspense" data-bs-slide="next">
+          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Próximo</span>
+        </button>
+      </div>
+    </section>
+
+    <section class="mb-5">
+      <div class="category-banner">Romance</div>
+
+      <div id="carouselRomance" class="carousel slide" data-bs-ride="false">
+        <div class="carousel-inner"></div>
+
+        <button class="carousel-control-prev" type="button" data-bs-target="#carouselRomance" data-bs-slide="prev">
+          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Anterior</span>
+        </button>
+
+        <button class="carousel-control-next" type="button" data-bs-target="#carouselRomance" data-bs-slide="next">
+          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Próximo</span>
+        </button>
+      </div>
+    </section>
+
+    <section class="mb-5">
+      <div class="category-banner">Fantasia</div>
+
+      <div id="carouselFantasia" class="carousel slide" data-bs-ride="false">
+        <div class="carousel-inner"></div>
+
+        <button class="carousel-control-prev" type="button" data-bs-target="#carouselFantasia" data-bs-slide="prev">
+          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Anterior</span>
+        </button>
+
+        <button class="carousel-control-next" type="button" data-bs-target="#carouselFantasia" data-bs-slide="next">
+          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Próximo</span>
+        </button>
+      </div>
+    </section>
+
+  </div>
+</main>
+
+<div class="modal fade" id="bookModal">
+  <div class="modal-dialog modal-lg modal-dialog-centered">
+    <div class="modal-content">
+
+      <div class="modal-header">
+        <h5 class="modal-title" id="modalTitle"></h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+
+      <div class="modal-body d-flex gap-3">
+        <img id="modalCover" src="" style="width:220px; border-radius:8px;">
+        <div>
+          <h6 id="modalAuthor" class="text-muted"></h6>
+          <div id="modalRating"></div>
+          <p id="modalSynopsis"></p>
+          <p id="modalPages" class="text-muted"></p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<footer class="sk-footer">
+  <div class="container">
+    © 2025 Skoob — Estante de Livros<br>
+    <small>Laura & Maria • Todos os direitos reservados</small>
+  </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.bundle.min.js"></script>
+
+<script>
+/* === DADOS === */
+const topRated = [
+  // SUSPENSE (6 livros - Índices 0 a 5)
+  { id:1, title:"Jantar Secreto", author:"Raphael Montes", rating:4.8, cover:"./imgs/jantar-secreto.jpg", pages:296, synopsis:"Quatro amigos dividem um apartamento e acabam envolvidos num ritual gastronômico perturbador."},
+  { id:2, title:"Vilarejo", author:"Raphael Montes", rating:4.6, cover:"./imgs/vilarejo.jpg" },
+  { id:3, title:"Dias Perfeitos", author:"Raphael Montes", rating:4.5, cover:"./imgs/dias perfeitos.jpg" },
+  { id:4, title:"Uma Família Feliz", author:"Raphael Montes", rating:4.4, cover:"./imgs/uma familia feliz.jpg" },
+  { id:5, title:"A Mágica Mortal", author:"Raphael Montes", rating:4.3, cover:"./imgs/a-magica-mortal.jpg" },
+  { id:6, title:"MindHunter", author:"Jonh Douglas", rating:4.3, cover:"./imgs/mind-hunter.jpg" },
+  { id:7, title: "Garota Exemplar", author: "Gillian Flynn", rating: 4.1, cover: "./imgs/garota-exemplar.jpg" },  
+  { id:8, title: "A Paciente Silenciosa", author: "Alex Michaelides", rating: 4.0, cover: "./imgs/a-paciente-silenciosa.jpg" },  
+  { id:9, title: "Antes de Dormir", author: "S. J. Watson", rating: 4.0, cover: "./imgs/antes-de-dormir.jpg" },
+
+
+  // ROMANCE (6 livros - Índices 6 a 11)
+  { id:10, title:"Abaixo de Zero", author:"Ali Hazelwood", rating:4.8, cover:"./imgs/abaixo-de-zero.jpg" },
+  { id:11, title:"No Fundo é Amor", author:"Ali Hazelwood", rating:4.6, cover:"./imgs/no-fundo-amor.jpg" },
+  { id:12, title:"Odeio Te Amar", author:"Ali Hazelwood", rating:4.5, cover:"./imgs/odeio-te-amar.jpg" },
+  { id:13, title:"Razão do Amor", author:"Ali Hazelwood", rating:4.4, cover:"./imgs/razao-do-amor.jpeg" },
+  { id:14, title:"Um Amor Problemático de Verão", author:"Ali Hazelwood", rating:4.3, cover:"./imgs/capa-amor-problematico.jpg" },
+  { id:15, title:"Xeque-Mate", author:"Ali Hazelwood", rating:4.3, cover:"./imgs/xeque-mate.jpg" },
+  { id:16, title: "Me Chame pelo Seu Nome", author: "André Aciman", rating: 4.2, cover: "./imgs/me-chame-pelo-seu-nome.jpg" },  
+  { id:17, title: "A Culpa é das Estrelas", author: "John Green", rating: 4.1, cover: "./imgs/a-culpa-e-das-estrelas.jpg" },  
+  { id:18, title: "O Jardim Secreto", author: "Frances Hodgson Burnett", rating: 4.0, cover: "./imgs/o-jardim-secreto.jpg" },
+
+  
+  // FANTASIA (6 livros - Índices 12 a 17)
+  { id:19, title:"Chama de Ferro", author:"Rebecca Yarros", rating:4.3, cover:"./imgs/chama-de-ferro.jpg" },
+  { id:20, title:"O Feiticeiro de TerraMar", author:"Ursula K. Le Guin", rating:4.8, cover:"./imgs/feiticeiro-do-mar.jpg" },
+  { id:21, title:"Princesa das Cinzas", author:"Laura Sebastian", rating:4.5, cover:"./imgs/princesa-das-cinzas.jpg" },
+  { id:22, title:"A Serpente e as Asas Feitas de Noite", author:"Carissa Broadbent", rating:4.4, cover:"./imgs/serpente-noite.jpg" },
+  { id:23, title:"Percy Jackson - e os Olimpianos", author:"Rick Riordan", rating:4.3, cover:"./imgs/percy-jackson.jpg" },
+  { id:24, title:"A Rainha Vermelha", author:"VIctoria Aveyard", rating:4.3, cover:"./imgs/rainha-vermelha.jpg" },
+  { id:25, title: "Half a Soul", author: "Olivia Atwater", rating: 4.3, cover: "./imgs/half-a-soul.jpg" },  
+  { id:26, title: "Swordheart", author: "T. Kingfisher", rating: 4.2, cover: "./imgs/swordheart.jpg" },  
+  { id:27, title: "A Discovery of Witches", author: "Deborah Harkness", rating: 4.1, cover: "./imgs/a-discovery-of-witches.jpg" },
+];
+
+/* === separa por categoria (CORRIGIDO) === */
+const suspense = topRated.slice(0, 9); 
+const romance = topRated.slice(9, 18); 
+const fantasia = topRated.slice(18, 27); 
+
+/* === helper para dividir em lotes === */
+function chunkArray(arr, size) {
+  const result = [];
+  for (let i = 0; i < arr.length; i += size) result.push(arr.slice(i, i + size));
+  return result;
+}
+
+/* === render do carrossel: cria carousel-items e popula com 6 cards por slide === */
+function renderCarousel(categoryArray, carouselId) {
+  const carouselInner = document.querySelector(`#${carouselId} .carousel-inner`);
+  carouselInner.innerHTML = ""; // limpa
+
+  const slides = chunkArray(categoryArray, 6); // 6 por slide
+
+  slides.forEach((slideBooks, index) => {
+    const item = document.createElement("div");
+    item.className = "carousel-item" + (index === 0 ? " active" : "");
+    // cria grid dentro do slide (mantendo classes e comportamento dos cards)
+    const grid = document.createElement("div");
+    grid.className = "books-grid";
+    // popula cards dentro desse grid
+    slideBooks.forEach(b => {
+      const node = document.createElement('article');
+      node.className = 'book-card';
+      node.innerHTML = `
+        <img src="${b.cover}" alt="${b.title}" class="cover">
+        <div class="meta">
+          <div class="book-title">${b.title}</div>
+          <div class="book-author">por ${b.author}</div>
+          <div class="rating-sm">${'★'.repeat(Math.round(b.rating))} <small class="text-muted">(${b.rating})</small></div>
+        </div>
+        <div class="controls">
+          <button class="add-to-shelf view-info">Ver Sobre</button>
+          <button class="add-to-shelf add-book">Adicionar à estante</button>
+        </div>
+      `;
+
+      // listeners (mesma funcionalidade do seu modal e adicionar)
+      const viewBtn = node.querySelector('.view-info');
+      viewBtn.addEventListener("click", (e) => {
+        e.stopPropagation();
+        openBookModal(b);
+      });
+
+      const addBtn = node.querySelector('.add-book');
+      addBtn.addEventListener("click", (e) => {
+        e.stopPropagation();
+        alert(`📚 "${b.title}" foi adicionado à sua estante!`);
+      });
+
+      grid.appendChild(node);
+    });
+
+    item.appendChild(grid);
+    carouselInner.appendChild(item);
+  });
+
+  // Se houver apenas 1 slide, esconde controles automaticamente
+  const carouselEl = document.getElementById(carouselId);
+  const prev = carouselEl.querySelector('.carousel-control-prev');
+  const next = carouselEl.querySelector('.carousel-control-next');
+  if (slides.length <= 1) {
+    prev.style.display = 'none';
+    next.style.display = 'none';
+  } else {
+    prev.style.display = '';
+    next.style.display = '';
+  }
+}
+
+/* === renderiza os 3 carrosseis === */
+renderCarousel(suspense, "carouselSuspense");
+renderCarousel(romance, "carouselRomance");
+renderCarousel(fantasia, "carouselFantasia");
+
+/* === MODAL === */
+const modal = new bootstrap.Modal(document.getElementById("bookModal"));
+
+function openBookModal(book){
+  document.getElementById("modalTitle").textContent = book.title;
+  document.getElementById("modalAuthor").textContent = "por " + book.author;
+  document.getElementById("modalCover").src = book.cover;
+  document.getElementById("modalRating").innerHTML = '★'.repeat(Math.round(book.rating)) + ` (${book.rating})`;
+  document.getElementById("modalSynopsis").textContent = book.synopsis || "Sem sinopse disponível.";
+  document.getElementById("modalPages").textContent = book.pages ? `${book.pages} páginas` : "";
+  modal.show();
+}
+</script>
+
+</body>
+</html>

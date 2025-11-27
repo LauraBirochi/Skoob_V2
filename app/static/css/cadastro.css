@@ -1,0 +1,337 @@
+
+    :root{
+      --skoob-red:#3E5327;
+      --accent:#3E5327;
+      --muted:#6c757d;
+      --bg:#ebf8e9;
+    }
+
+    html,body{
+      height:100%;
+    }
+
+    body{
+      font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+      margin:0;
+      background:#fff;
+      color:#111;
+      display:flex;
+      flex-direction:column;
+      min-height:100vh;
+    }
+
+    /* Offcanvas estilizado com gradiente, ícones e efeitos de hover */
+    .sk-offcanvas .offcanvas-header {
+      background: linear-gradient(135deg, #4C6333 0%, #3E5327 100%);
+      color: #fff;
+      padding: 1.5rem;
+      border-bottom: 3px solid #BFD8B2;
+    }
+
+    .sk-offcanvas .offcanvas-title {
+      font-weight: 700;
+      font-size: 1.4rem;
+      letter-spacing: 0.5px;
+    }
+
+    .sk-offcanvas .btn-close {
+      filter: brightness(0) invert(1);
+      opacity: 0.8;
+    }
+
+    .sk-offcanvas .btn-close:hover {
+      opacity: 1;
+    }
+
+    .sk-offcanvas .offcanvas-body {
+      background: linear-gradient(180deg, #BFD8B2 0%, #d4e8cc 100%);
+      padding: 1.5rem 0;
+    }
+
+    /* Estilizando links do menu com ícones e hover elegante */
+    .sk-offcanvas .nav-link {
+      color: #2a3d1a;
+      font-weight: 600;
+      padding: 0.85rem 1.5rem;
+      border-radius: 8px;
+      margin: 0.25rem 1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .sk-offcanvas .nav-link i {
+      font-size: 1.1rem;
+      width: 24px;
+      text-align: center;
+      transition: transform 0.3s ease;
+    }
+
+    .sk-offcanvas .nav-link::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0;
+      height: 100%;
+      width: 4px;
+      background: var(--skoob-red);
+      transform: scaleY(0);
+      transition: transform 0.3s ease;
+    }
+
+    .sk-offcanvas .nav-link:hover {
+      background: rgba(62, 83, 39, 0.12);
+      color: var(--skoob-red);
+      transform: translateX(4px);
+    }
+
+    .sk-offcanvas .nav-link:hover::before {
+      transform: scaleY(1);
+    }
+
+    .sk-offcanvas .nav-link:hover i {
+      transform: scale(1.15);
+    }
+
+    /* Seção de categorias com estilo especial */
+    .offcanvas-section-title {
+      color: #2a3d1a;
+      font-weight: 700;
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      padding: 1rem 1.5rem 0.5rem;
+      margin-top: 0.5rem;
+      opacity: 0.7;
+    }
+
+    .offcanvas-divider {
+      border: 0;
+      height: 1px;
+      background: rgba(62, 83, 39, 0.15);
+      margin: 1rem 1.5rem;
+    }
+
+    /* Links de categoria com ícones personalizados */
+    .category-link {
+      position: relative;
+    }
+
+    .category-link::after {
+      content: '→';
+      position: absolute;
+      right: 1.5rem;
+      opacity: 0;
+      transform: translateX(-10px);
+      transition: all 0.3s ease;
+    }
+
+    .category-link:hover::after {
+      opacity: 1;
+      transform: translateX(0);
+    }
+
+    /* Botão do menu */
+    .btn-primary {
+      background-color: #3E5327;
+      border-color: #BFD8B2;
+    }
+
+    .btn-primary:hover,
+    .btn-primary:focus {
+      background-color: #4C6333;
+      border-color: #BFD8B2;
+    }
+
+    .btn-primary:active {
+      background-color: #BFD8B2 !important;
+      border-color: #BFD8B2 !important;
+    }
+
+    /* HEADER */
+    .sk-header{
+      background:#BFD8B2;
+      box-shadow: 0 1px 8px rgba(0,0,0,0.06);
+      padding:1.0rem 0.75rem;
+      position: relative;
+    }
+
+    .sk-header .center-logo{
+      position:absolute;
+      left:50%;
+      top:50%;
+      transform:translate(-50%,-50%);
+      pointer-events:none;
+    }
+
+    .sk-header .center-logo img{
+      width:180px;
+      max-width:45vw;
+      pointer-events:none;
+    }
+
+    .nav-right i{
+      color:var(--skoob-red);
+      transition:transform 0.2s ease;
+    }
+
+    .nav-right i:hover{
+      transform:scale(1.1);
+      color:#4C6333;
+    }
+
+    /* From Uiverse.io by Yaya12085 */ 
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  max-width: 350px;
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 20px;
+  position: relative;
+}
+
+.title {
+  font-size: 28px;
+  color: #4C6333;
+  font-weight: 600;
+  letter-spacing: -1px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  padding-left: 30px;
+}
+
+.title::before,.title::after {
+  position: absolute;
+  content: "";
+  height: 16px;
+  width: 16px;
+  border-radius: 50%;
+  left: 0px;
+  background-color: #4C6333;
+}
+
+.title::before {
+  width: 18px;
+  height: 18px;
+  background-color: #4C6333;
+}
+
+.title::after {
+  width: 18px;
+  height: 18px;
+  animation: pulse 1s linear infinite;
+}
+
+.message, .signin {
+  color: rgba(88, 87, 87, 0.822);
+  font-size: 14px;
+}
+
+.signin {
+  text-align: center;
+}
+
+.signin a {
+  color: #4C6333;
+}
+
+.signin a:hover {
+  text-decoration: underline #4C6333;
+}
+
+.flex {
+  display: flex;
+  width: 100%;
+  gap: 6px;
+}
+
+.form label {
+  position: relative;
+}
+
+.form label .input {
+  width: 100%;
+  padding: 10px 10px 20px 10px;
+  outline: 0;
+  border: 1px solid rgba(105, 105, 105, 0.397);
+  border-radius: 10px;
+}
+
+.form label .input + span {
+  position: absolute;
+  left: 10px;
+  top: 15px;
+  color: grey;
+  font-size: 0.9em;
+  cursor: text;
+  transition: 0.3s ease;
+}
+
+.form label .input:placeholder-shown + span {
+  top: 15px;
+  font-size: 0.9em;
+}
+
+.form label .input:focus + span,.form label .input:valid + span {
+  top: 30px;
+  font-size: 0.7em;
+  font-weight: 600;
+}
+
+.form label .input:valid + span {
+  color: green;
+}
+
+.submit {
+  border: none;
+  outline: none;
+  background-color: #4C6333;
+  padding: 10px;
+  border-radius: 10px;
+  color: #fff;
+  font-size: 16px;
+  transform: .3s ease;
+}
+
+.submit:hover {
+  background-color: #4C6333;
+}
+
+@keyframes pulse {
+  from {
+    transform: scale(0.9);
+    opacity: 1;
+  }
+
+  to {
+    transform: scale(1.8);
+    opacity: 0;
+  }
+}
+
+/* CENTRALIZAÇÃO DO FORMULÁRIO */
+.main-content {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--bg);
+  padding: 2rem 1rem;
+}
+
+    /* FOOTER */
+    .sk-footer{
+      background:var(--accent);
+      color:#fff;
+      padding:1rem 0;
+      margin-top:auto;
+      text-align:center;
+    }
+
+    
