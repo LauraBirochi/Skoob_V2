@@ -27,6 +27,7 @@
 
 <header class="sk-header">
   <div class="container-fluid d-flex align-items-center position-relative">
+    
     <div class="nav-left">
       <button class="btn btn-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#skOffcanvas">
         <i class="fas fa-bars"></i>
@@ -34,15 +35,15 @@
     </div>
 
     <div class="center-logo" aria-hidden="true">
-      <a href="{{ url_for('main.home') }}">
-      <img src="{{ url_for('static', filename='images/skoob.png') }}" width="200" alt="Skoob Logo">
+      <a href="{{ url_for('main.home') }}"> 
+        <img src="{{ url_for('static', filename='images/skoob.png') }}" width="200" alt="Skoob Logo">
       </a>
     </div>
 
-    <div class="ms-auto nav-right d-flex align-items-center">
-      <a href="cadastro.html" class="text-decoration-none">
-        <i class="fas fa-user-circle fa-2x" style="color: var(--skoob-red);"></i>
-      </a>
+    <div class="ms-auto">
+      {% if usuario %}
+        <span id="nomeuser" class="mb-0 fw-bold">Olá, {{ usuario.apelido }}!</span>
+      {% endif %}
     </div>
   </div>
 </header>
@@ -168,100 +169,107 @@
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.bundle.min.js"></script>
 
+<!-- LÓGICA JAVASCRIPT DA PÁGINA -->
+<script id="livros-json" type="application/json">
+  {{ dados_livros | tojson }}
+</script>
+
 <script>
-/* === DADOS === */
-const topRated = [
-  // SUSPENSE (6 livros - Índices 0 a 5)
-  { id:1, title:"Jantar Secreto", author:"Raphael Montes", rating:4.8, cover: "{{ url_for('static', filename='images/jantar-secreto.jpeg') }}",
-  pages:296, synopsis:"Quatro amigos dividem um apartamento e acabam envolvidos num ritual gastronômico perturbador."},
+let topRated = [];
+let suspense = [];
+let romance = [];
+let fantasia = [];
 
-  { id:2, title:"Vilarejo", author:"Raphael Montes", rating:4.6, cover: "{{ url_for('static', filename='images/vilarejo.jpeg') }}"},
-  { id:3, title:"Dias Perfeitos", author:"Raphael Montes", rating:4.5, cover: "{{ url_for('static', filename='images/dias-perfeitos.jpeg') }}" },
-  { id:4, title:"Uma Família Feliz", author:"Raphael Montes", rating:4.4, cover: "{{ url_for('static', filename='images/familia-feliz.jpeg') }}"},
-  { id:5, title:"A Mágica Mortal", author:"Raphael Montes", rating:4.3, cover: "{{ url_for('static', filename='images/magica-mortal.jpeg') }}"},
-  { id:6, title:"MindHunter", author:"Jonh Douglas", rating:4.3, cover: "{{ url_for('static', filename='images/mindhunter.jpeg') }}" },
-  { id:7, title: "Garota Exemplar", author: "Gillian Flynn", rating: 4.1, cover: "{{ url_for('static', filename='images/garota-exemplar.jpeg') }}"},  
-  { id:8, title: "A Paciente Silenciosa", author: "Alex Michaelides", rating: 4.0, cover: "{{ url_for('static', filename='images/paciente-silenciosa.jpeg') }}"},  
-  { id:9, title: "Antes de Dormir", author: "S. J. Watson", rating: 4.0, cover: "{{ url_for('static', filename='images/antes-dormir.jpeg') }}"},
+document.addEventListener("DOMContentLoaded", function() {
+    console.log("🚀 Iniciando script da livraria...");
 
+    /* === teste de console === */
+    try {
+        const dadosBrutos = document.getElementById('livros-json').textContent;
+        topRated = JSON.parse(dadosBrutos);
+        
+        console.log("✅ Dados recebidos do Python:", topRated); 
+    } catch (e) {
+        console.error("❌ Erro ao ler JSON:", e);
+        return;
+    }
 
-  // ROMANCE (6 livros - Índices 6 a 11)
-  { id:10, title:"Abaixo de Zero", author:"Ali Hazelwood", rating:4.8, cover:"./imgs/abaixo-de-zero.jpg" },
-  { id:11, title:"No Fundo é Amor", author:"Ali Hazelwood", rating:4.6, cover:"./imgs/no-fundo-amor.jpg" },
-  { id:12, title:"Odeio Te Amar", author:"Ali Hazelwood", rating:4.5, cover:"./imgs/odeio-te-amar.jpg" },
-  { id:13, title:"Razão do Amor", author:"Ali Hazelwood", rating:4.4, cover:"./imgs/razao-do-amor.jpeg" },
-  { id:14, title:"Um Amor Problemático de Verão", author:"Ali Hazelwood", rating:4.3, cover:"./imgs/capa-amor-problematico.jpg" },
-  { id:15, title:"Xeque-Mate", author:"Ali Hazelwood", rating:4.3, cover:"./imgs/xeque-mate.jpg" },
-  { id:16, title: "Me Chame pelo Seu Nome", author: "André Aciman", rating: 4.2, cover: "./imgs/me-chame-pelo-seu-nome.jpg" },  
-  { id:17, title: "A Culpa é das Estrelas", author: "John Green", rating: 4.1, cover: "./imgs/a-culpa-e-das-estrelas.jpg" },  
-  { id:18, title: "O Jardim Secreto", author: "Frances Hodgson Burnett", rating: 4.0, cover: "./imgs/o-jardim-secreto.jpg" },
+    suspense = topRated.filter(b => b.category && b.category.trim() === "Suspense");
+    romance = topRated.filter(b => b.category && b.category.trim() === "Romance");
+    fantasia = topRated.filter(b => b.category && b.category.trim() === "Fantasia");
 
-  
-  // FANTASIA (6 livros - Índices 12 a 17)
-  { id:19, title:"Chama de Ferro", author:"Rebecca Yarros", rating:4.3, cover:"./imgs/chama-de-ferro.jpg" },
-  { id:20, title:"O Feiticeiro de TerraMar", author:"Ursula K. Le Guin", rating:4.8, cover:"./imgs/feiticeiro-do-mar.jpg" },
-  { id:21, title:"Princesa das Cinzas", author:"Laura Sebastian", rating:4.5, cover:"./imgs/princesa-das-cinzas.jpg" },
-  { id:22, title:"A Serpente e as Asas Feitas de Noite", author:"Carissa Broadbent", rating:4.4, cover:"./imgs/serpente-noite.jpg" },
-  { id:23, title:"Percy Jackson - e os Olimpianos", author:"Rick Riordan", rating:4.3, cover:"./imgs/percy-jackson.jpg" },
-  { id:24, title:"A Rainha Vermelha", author:"VIctoria Aveyard", rating:4.3, cover:"./imgs/rainha-vermelha.jpg" },
-  { id:25, title: "Half a Soul", author: "Olivia Atwater", rating: 4.3, cover: "./imgs/half-a-soul.jpg" },  
-  { id:26, title: "Swordheart", author: "T. Kingfisher", rating: 4.2, cover: "./imgs/swordheart.jpg" },  
-  { id:27, title: "A Discovery of Witches", author: "Deborah Harkness", rating: 4.1, cover: "./imgs/a-discovery-of-witches.jpg" },
-];
+    console.log(`📊 Filtros: Suspense(${suspense.length}), Romance(${romance.length}), Fantasia(${fantasia.length})`);
 
-/* === separa por categoria (CORRIGIDO) === */
-const suspense = topRated.slice(0, 9); 
-const romance = topRated.slice(9, 18); 
-const fantasia = topRated.slice(18, 27); 
+    /* === 4. RENDERIZA OS CARROSSEIS === */
+    renderCarousel(suspense, "carouselSuspense");
+    renderCarousel(romance, "carouselRomance");
+    renderCarousel(fantasia, "carouselFantasia");
+});
 
-/* === helper para dividir em lotes === */
+/* Divisão dos Slides  */
 function chunkArray(arr, size) {
   const result = [];
   for (let i = 0; i < arr.length; i += size) result.push(arr.slice(i, i + size));
   return result;
 }
 
-/* === render do carrossel: cria carousel-items e popula com 6 cards por slide === */
+/* === RENDERIZAÇÃO === */
 function renderCarousel(categoryArray, carouselId) {
   const carouselInner = document.querySelector(`#${carouselId} .carousel-inner`);
-  carouselInner.innerHTML = ""; // limpa
+  
+  if (!carouselInner) {
+      console.warn(`⚠️ Aviso: Elemento #${carouselId} não encontrado no HTML.`);
+      return; 
+  }
+  
+  carouselInner.innerHTML = ""; 
 
-  const slides = chunkArray(categoryArray, 6); // 6 por slide
+  if (categoryArray.length === 0) {
+      carouselInner.innerHTML = "<p class='text-center p-3 text-muted'>Nenhum livro encontrado nesta categoria.</p>";
+      return;
+  }
+
+  const slides = chunkArray(categoryArray, 6);
 
   slides.forEach((slideBooks, index) => {
     const item = document.createElement("div");
     item.className = "carousel-item" + (index === 0 ? " active" : "");
-    // cria grid dentro do slide (mantendo classes e comportamento dos cards)
     const grid = document.createElement("div");
     grid.className = "books-grid";
-    // popula cards dentro desse grid
+
     slideBooks.forEach(b => {
       const node = document.createElement('article');
       node.className = 'book-card';
+      
+      // Define a imagem (com fallback seguro)
+      const capaUrl = b.cover ? b.cover : '/static/images/capa-padrao.jpg';
+
       node.innerHTML = `
-        <img src="${b.cover}" alt="${b.title}" class="cover">
+        <img 
+            src="${capaUrl}" 
+            alt="${b.title}" 
+            class="cover"
+            onerror="this.onerror=null; this.src='/static/images/capa-padrao.jpg';"
+        >
         <div class="meta">
           <div class="book-title">${b.title}</div>
-          <div class="book-author">por ${b.author}</div>
-          <div class="rating-sm">${'★'.repeat(Math.round(b.rating))} <small class="text-muted">(${b.rating})</small></div>
+          <div class="book-author">por ${b.author || 'Desconhecido'}</div>
+          <div class="rating-sm">
+             ${'★'.repeat(Math.round(b.rating || 0))} 
+             <small class="text-muted">(${(b.rating || 0).toFixed(1)})</small>
+          </div>
         </div>
         <div class="controls">
           <button class="add-to-shelf view-info">Ver Sobre</button>
-          <button class="add-to-shelf add-book">Adicionar à estante</button>
+          <button class="add-to-shelf add-book" onclick="adicionarAoBanco(${b.id}, this)">
+            Adicionar à estante
+          </button>
         </div>
       `;
 
-      // listeners (mesma funcionalidade do seu modal e adicionar)
-      const viewBtn = node.querySelector('.view-info');
-      viewBtn.addEventListener("click", (e) => {
+      node.querySelector('.view-info').addEventListener("click", (e) => {
         e.stopPropagation();
         openBookModal(b);
-      });
-
-      const addBtn = node.querySelector('.add-book');
-      addBtn.addEventListener("click", (e) => {
-        e.stopPropagation();
-        alert(`📚 "${b.title}" foi adicionado à sua estante!`);
       });
 
       grid.appendChild(node);
@@ -270,38 +278,67 @@ function renderCarousel(categoryArray, carouselId) {
     item.appendChild(grid);
     carouselInner.appendChild(item);
   });
-
-  // Se houver apenas 1 slide, esconde controles automaticamente
+  
+  // Controle das Setas
   const carouselEl = document.getElementById(carouselId);
-  const prev = carouselEl.querySelector('.carousel-control-prev');
-  const next = carouselEl.querySelector('.carousel-control-next');
-  if (slides.length <= 1) {
-    prev.style.display = 'none';
-    next.style.display = 'none';
-  } else {
-    prev.style.display = '';
-    next.style.display = '';
+  if(carouselEl && slides.length <= 1) {
+      const prev = carouselEl.querySelector('.carousel-control-prev');
+      const next = carouselEl.querySelector('.carousel-control-next');
+      if(prev) prev.style.display = 'none';
+      if(next) next.style.display = 'none';
   }
 }
 
-/* === renderiza os 3 carrosseis === */
-renderCarousel(suspense, "carouselSuspense");
-renderCarousel(romance, "carouselRomance");
-renderCarousel(fantasia, "carouselFantasia");
-
 /* === MODAL === */
-const modal = new bootstrap.Modal(document.getElementById("bookModal"));
+const modalElement = document.getElementById("bookModal");
+const modal = modalElement ? new bootstrap.Modal(modalElement) : null;
 
 function openBookModal(book){
+  if (!modal) return;
   document.getElementById("modalTitle").textContent = book.title;
-  document.getElementById("modalAuthor").textContent = "por " + book.author;
-  document.getElementById("modalCover").src = book.cover;
-  document.getElementById("modalRating").innerHTML = '★'.repeat(Math.round(book.rating)) + ` (${book.rating})`;
-  document.getElementById("modalSynopsis").textContent = book.synopsis || "Sem sinopse disponível.";
-  document.getElementById("modalPages").textContent = book.pages ? `${book.pages} páginas` : "";
+  document.getElementById("modalAuthor").textContent = "por " + (book.author || "Autor desconhecido");
+  
+  const img = document.getElementById("modalCover");
+  img.src = book.cover ? book.cover : '/static/images/capa-padrao.jpg';
+  img.onerror = function() { this.src = '/static/images/capa-padrao.jpg'; };
+
+  const r = book.rating || 0;
+  const stars = '★'.repeat(Math.round(r)) + '☆'.repeat(5 - Math.round(r));
+  document.getElementById("modalRating").innerHTML = `<span style="color:gold;font-size:1.2rem;">${stars}</span> <small>(${r.toFixed(1)})</small>`;
+  
+  document.getElementById("modalSynopsis").innerText = book.synopsis || "Sem sinopse.";
+  
+  const pgs = document.getElementById("modalPages");
+  if(pgs) pgs.textContent = book.pages ? `${book.pages} pgs` : "";
+  
   modal.show();
 }
+
+/* === AJAX === */
+function adicionarAoBanco(id, btn) {
+    const original = btn.innerText;
+    btn.innerText = "Salvar...";
+    btn.disabled = true;
+
+    fetch(`/livros/add_ajax/${id}`)
+        .then(r => {
+            if(r.status === 401) throw new Error("LOGIN");
+            return r.json();
+        })
+        .then(d => {
+            if(d.ok) btn.innerText = "Salvo ✔";
+            else { alert(d.mensagem); btn.innerText = original; btn.disabled = false; }
+        })
+        .catch(e => {
+            if(e.message === "LOGIN") {
+                alert("Faça login!"); window.location.href="/";
+            } else {
+                console.error(e); alert("Erro ao salvar."); btn.innerText = original; btn.disabled = false;
+            }
+        });
+}
 </script>
+
 
 </body>
 </html>

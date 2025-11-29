@@ -25,8 +25,7 @@ def login():
         
         flash(f"Login realizado! Bem-vindo, {usuario.nome_completo}.", "success")
         
-        # 5. IMPORTANTE: O redirecionamento DEVE bater com o nome do seu Blueprint
-        # Se seu blueprint foi registrado como 'main', use 'main.home'.
+        # BP AQUI É MAIN
         return redirect(url_for("main.home"))
         
     else:

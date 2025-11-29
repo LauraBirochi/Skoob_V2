@@ -2,6 +2,7 @@ from flask import Blueprint, render_template, session, redirect, url_for, flash,
 from .models import Livro, Estante
 from .database import db
 
+
 bp_livro = Blueprint("livro", __name__, url_prefix="/livros")
 
 @bp_livro.route("/")
@@ -50,5 +51,28 @@ def adicionar_estante_ajax(livro_id):
 
 @bp_livro.route("/livraria")
 def livraria():
-    livros = Livro.query.all()
-    return render_template("livraria.html", livros=livros)
+    livros_db = Livro.query.all()
+    
+    lista_livros_js = []
+    
+    for livro in livros_db:
+        nome_capa = livro.capa if livro.capa else 'capa-padrao.jpg'
+        
+        url_imagem = url_for('static', filename=f'images/{nome_capa}')
+        
+        cat = livro.categoria if livro.categoria else "Indefinido"
+        
+        #Dicionário JavaScript
+        item = {
+            "id": livro.id,
+            "title": livro.titulo,
+            "author": livro.autor,
+            "category": cat,  
+            "cover": url_imagem,
+            "pages": livro.paginas,
+            "rating": float(livro.nota) if livro.nota else 0.0,
+            "synopsis": livro.descricao if livro.descricao else "Sinopse indisponível."
+        }
+        lista_livros_js.append(item)
+
+    return render_template("livraria.html", dados_livros=lista_livros_js)
