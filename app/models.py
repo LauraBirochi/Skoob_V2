@@ -10,6 +10,8 @@ class Usuario(db.Model):
     # Relacionamento com estante
     estantes = db.relationship("Estante", backref="usuario", lazy=True)
 
+    def __repr__(self):
+        return f"<Usuario {self.nome}>"
 
 class Livro(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -18,7 +20,11 @@ class Livro(db.Model):
     isbd = db.Column(db.String(50), nullable=True)
     descricao = db.Column(db.Text, nullable=True)
     paginas = db.Column(db.Integer, nullable=True)
+    capa = db.Column(db.String(255), nullable=True)
+    nota = db.Column(db.Float, nullable=True)
 
+    def __repr__(self):
+        return f"<Livro {self.titulo}>"
 
 class Estante(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -32,3 +38,6 @@ class Estante(db.Model):
     
     # Status da leitura
     status = db.Column(db.String(50), nullable=False)  # ex: "Lendo", "Quero Ler", "Lido"
+
+    def __repr__(self):
+        return f"<Estante User:{self.usuario_id} Livro:{self.livro_id}>"

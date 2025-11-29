@@ -48,3 +48,7 @@ def adicionar_estante_ajax(livro_id):
 
     return jsonify({"ok": True, "mensagem": "Livro adicionado à estante!"}), 200
 
+@bp_livro.route("/livraria")
+def livraria():
+    livros = Livro.query.all()
+    return render_template("livraria.html", livros=livros)

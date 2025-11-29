@@ -5,7 +5,6 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Skoob • Estante de Livros</title>
 
-  <link rel="stylesheet" href="{{ url_for('static', filename='css/login.css') }}">
 
 
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
@@ -20,9 +19,7 @@
 <!-- Suas fontes -->
 <link href="https://fonts.googleapis.com/css2?family=Momo+Signature&family=Playwrite+HU:wght@100..400&display=swap" rel="stylesheet">
 
-
-<!-- Estilo específico da livraria -->
-<link rel="stylesheet" href="style-livraria.css">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/livraria.css') }}">
 
 </head>
 
@@ -37,7 +34,9 @@
     </div>
 
     <div class="center-logo" aria-hidden="true">
-      <img src="./imgs/logo.png" alt="Skoob logo">
+      <a href="{{ url_for('main.home') }}">
+      <img src="{{ url_for('static', filename='images/skoob.png') }}" width="200" alt="Skoob Logo">
+      </a>
     </div>
 
     <div class="ms-auto nav-right d-flex align-items-center">
@@ -50,13 +49,13 @@
 
 <div class="offcanvas offcanvas-start sk-offcanvas" tabindex="-1" id="skOffcanvas">
   <div class="offcanvas-header">
-    <h5 class="offcanvas-title">Menu da Estante</h5>
+    
     <button type="button" class="btn-close" data-bs-dismiss="offcanvas"></button>
   </div>
   
   <div class="offcanvas-body">
     <nav class="nav flex-column">
-      <a class="nav-link"><i class="fas fa-home"></i>Estante Virtual</a>
+      <a class="nav-link" ><i class="fas fa-home"></i>Inicio</a>
       <a class="nav-link"><i class="fas fa-user"></i>Perfil</a>
       <a class="nav-link"><i class="fas fa-book"></i>Minha Estante</a>
 
@@ -173,15 +172,17 @@
 /* === DADOS === */
 const topRated = [
   // SUSPENSE (6 livros - Índices 0 a 5)
-  { id:1, title:"Jantar Secreto", author:"Raphael Montes", rating:4.8, cover:"./imgs/jantar-secreto.jpg", pages:296, synopsis:"Quatro amigos dividem um apartamento e acabam envolvidos num ritual gastronômico perturbador."},
-  { id:2, title:"Vilarejo", author:"Raphael Montes", rating:4.6, cover:"./imgs/vilarejo.jpg" },
-  { id:3, title:"Dias Perfeitos", author:"Raphael Montes", rating:4.5, cover:"./imgs/dias perfeitos.jpg" },
-  { id:4, title:"Uma Família Feliz", author:"Raphael Montes", rating:4.4, cover:"./imgs/uma familia feliz.jpg" },
-  { id:5, title:"A Mágica Mortal", author:"Raphael Montes", rating:4.3, cover:"./imgs/a-magica-mortal.jpg" },
-  { id:6, title:"MindHunter", author:"Jonh Douglas", rating:4.3, cover:"./imgs/mind-hunter.jpg" },
-  { id:7, title: "Garota Exemplar", author: "Gillian Flynn", rating: 4.1, cover: "./imgs/garota-exemplar.jpg" },  
-  { id:8, title: "A Paciente Silenciosa", author: "Alex Michaelides", rating: 4.0, cover: "./imgs/a-paciente-silenciosa.jpg" },  
-  { id:9, title: "Antes de Dormir", author: "S. J. Watson", rating: 4.0, cover: "./imgs/antes-de-dormir.jpg" },
+  { id:1, title:"Jantar Secreto", author:"Raphael Montes", rating:4.8, cover: "{{ url_for('static', filename='images/jantar-secreto.jpeg') }}",
+  pages:296, synopsis:"Quatro amigos dividem um apartamento e acabam envolvidos num ritual gastronômico perturbador."},
+
+  { id:2, title:"Vilarejo", author:"Raphael Montes", rating:4.6, cover: "{{ url_for('static', filename='images/vilarejo.jpeg') }}"},
+  { id:3, title:"Dias Perfeitos", author:"Raphael Montes", rating:4.5, cover: "{{ url_for('static', filename='images/dias-perfeitos.jpeg') }}" },
+  { id:4, title:"Uma Família Feliz", author:"Raphael Montes", rating:4.4, cover: "{{ url_for('static', filename='images/familia-feliz.jpeg') }}"},
+  { id:5, title:"A Mágica Mortal", author:"Raphael Montes", rating:4.3, cover: "{{ url_for('static', filename='images/magica-mortal.jpeg') }}"},
+  { id:6, title:"MindHunter", author:"Jonh Douglas", rating:4.3, cover: "{{ url_for('static', filename='images/mindhunter.jpeg') }}" },
+  { id:7, title: "Garota Exemplar", author: "Gillian Flynn", rating: 4.1, cover: "{{ url_for('static', filename='images/garota-exemplar.jpeg') }}"},  
+  { id:8, title: "A Paciente Silenciosa", author: "Alex Michaelides", rating: 4.0, cover: "{{ url_for('static', filename='images/paciente-silenciosa.jpeg') }}"},  
+  { id:9, title: "Antes de Dormir", author: "S. J. Watson", rating: 4.0, cover: "{{ url_for('static', filename='images/antes-dormir.jpeg') }}"},
 
 
   // ROMANCE (6 livros - Índices 6 a 11)

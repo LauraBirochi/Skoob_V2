@@ -156,7 +156,7 @@
       transform: translateY(-50%);
       height: 40px; 
       width: 40px; 
-      background-color: var(--accent); /* Cor de fundo */
+      background-color: #3E5327; /* Cor de fundo */
       border-radius: 50%; /* Botão redondo */
       opacity: 0.9;
       box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);

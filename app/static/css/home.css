@@ -1,6 +1,37 @@
-body{
+body {
   margin: 0;
   background-color: #e2efdd;
+}
+
+#nomeuser {
+  color: #60c969;
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, Trebuchet MS, sans-serif;
+  transition: 0.3s ease;
+}
+
+/* Pulso único no hover */
+#nomeuser:hover {
+  animation: pulsar 0.8s ease-in-out 1; /* Apenas 1 vez */
+  cursor: pointer;
+}
+
+/* Animação do pulso */
+@keyframes pulsar {
+  0% {
+    text-shadow: 0 0 4px rgba(96, 201, 105, 0.5),
+                 0 0 8px rgba(96, 201, 105, 0.3);
+    transform: scale(1);
+  }
+  50% {
+    text-shadow: 0 0 12px rgba(96, 201, 105, 0.9),
+                 0 0 24px rgba(96, 201, 105, 0.6);
+    transform: scale(1.08);
+  }
+  100% {
+    text-shadow: 0 0 4px rgba(96, 201, 105, 0.5),
+                 0 0 8px rgba(96, 201, 105, 0.3);
+    transform: scale(1);
+  }
 }
 
 body::-webkit-scrollbar {
@@ -16,18 +47,7 @@ body::-webkit-scrollbar {
   position: absolute;
   left: 50%;
   transform: translateX(-50%);
-
 }
-
-.offcanvas-backdrop {
-  opacity: 0.5 !important;
-}
-
-.offcanvas.clicked {
-  background-color: #d4edda; /* Verde claro */
-  transition: background-color 0.3s ease-in-out;
-}
-
 
 .btn-outline-primary {
     --bs-btn-color: #60c969;
@@ -68,13 +88,13 @@ body::-webkit-scrollbar {
   padding: 1rem 0;
 }
 
-/*Carousel */
+/* Carousel */
 .carousel-indicators [data-bs-target] {
   background-color: #1a1616; /* cor padrão dos não selecionados */
 }
 
 .carousel-indicators .active {
-  background-color: #f1a2b5; /* cor do slide atual (ex: laranja) */
+  background-color: #f1a2b5; /* cor do slide atual */
 }
 
 .carousel-control-prev-icon,
@@ -82,29 +102,40 @@ body::-webkit-scrollbar {
     background-image: none; /* Remove o SVG padrão */
     width: 3rem;
     height: 3rem;
-  }
+}
 
 .carousel-control-prev-icon::after {
     content: '❮';
     color: #f1a2b5;
     font-size: 2.5rem;
-  }
+}
 
 .carousel-control-next-icon::after {
     content: '❯';
     color: #f1a2b5;
     font-size: 2.5rem;
-  }
-
-
-/*Botão Quero Ler*/
-.btn-primary{
-  color: white;
-  background-color: #198754;
-  border: 1px solid bisque;
 }
 
-/*resultados enquete*/
+/* Botão Quero Ler */
+.btn-primary {
+  color: white;
+  background-color: #3E5327;
+  border-color: transparent;
+}
+
+.btn-primary:hover
+{
+  background-color: #3E5327;
+  border-color: transparent;
+}
+
+.btn-primary:active
+{
+  background-color: #3E5327 !important;
+  border-color: transparent !important;
+}
+
+/* Resultados enquete */
 .resultados { display: none; margin-top: 1rem; }
 .comentarios {
   cursor: pointer;
@@ -112,76 +143,163 @@ body::-webkit-scrollbar {
   display: inline-flex;
   align-items: center;
   gap: 0.25rem;
-
 }
 
-/*comentário*/
-  .comentario-hover {
-    transition: color 0.2s ease-in-out;
-  }
-
-  .comentario-hover:hover {
-    color: #ec0d41; /* mesma cor do Bootstrap .text-primary */
-    cursor: pointer;
-  }
-
-  /* --- ESTILOS ESPECÍFICOS DO OFF-CANVAS SKOOB --- */
-
-/* Fundo e Borda do Offcanvas */
-.sk-offcanvas {
-  background-color: #f7f7f7; /* Um fundo mais claro que o body, para destaque */
-  border-right: 4px solid #198754; /* Borda lateral verde */
-  box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+/* Comentário */
+.comentario-hover {
+  transition: color 0.2s ease-in-out;
 }
 
-/* Título e Cabeçalho do Menu */
-.offcanvas-header {
-  background-color: #81cb98; /* Fundo do cabeçalho do menu (Verde mais suave) */
+.comentario-hover:hover {
+  color: #ec0d41; /* mesma cor do Bootstrap .text-primary */
+  cursor: pointer;
+}
+
+/* =========================================
+   ESTILO DO OFFCANVAS (IDÊNTICO AO LOGIN)
+   ========================================= */
+/* Variável necessária para o efeito verde */
+:root {
+  --skoob-red: #3E5327;
+}
+
+/* Cabeçalho do Menu - TRAVADO PARA NÃO PULSAR */
+.sk-offcanvas .offcanvas-header {
+  background: linear-gradient(135deg, #4C6333 0%, #3E5327 100%);
   color: #fff;
-  border-bottom: 1px solid #198754;
+  padding: 1.5rem;
+  border-bottom: 3px solid #BFD8B2;
+  
+  /* Bloqueia animações e sombras no header */
+  animation: none !important; 
+  transition: none !important;
+  box-shadow: none !important;
 }
 
-.offcanvas-title {
-  color: #fff;
-  font-weight: bold;
+.sk-offcanvas .offcanvas-title {
+  font-weight: 700;
+  font-size: 1.4rem;
+  letter-spacing: 0.5px;
+  animation: none !important; 
+  transition: none !important;
 }
 
-.btn-close {
-  filter: invert(1); /* Deixa o X do botão branco para contraste */
+/* Botão Fechar (X) - REMOVIDO O BRILHO DE FOCO */
+.sk-offcanvas .btn-close {
+  filter: brightness(0) invert(1);
+  opacity: 0.8;
+  
+  /* Remove o brilho padrão do bootstrap ao carregar */
+  box-shadow: none !important;
+  outline: none !important;
 }
 
-/* Estilo dos Links de Navegação */
-.offcanvas-body .nav-link {
-  color: #333;
-  padding: 10px 15px;
-  font-size: 1rem;
-  transition: background-color 0.2s, color 0.2s;
+/* Estado Hover, Foco e Ativo do botão X */
+.sk-offcanvas .btn-close:hover,
+.sk-offcanvas .btn-close:focus,
+.sk-offcanvas .btn-close:active {
+  opacity: 1;
+  /* Garante que não apareça o anel de foco (pulso) ao clicar */
+  box-shadow: none !important;
+  outline: none !important;
+  animation: none !important;
 }
 
-.offcanvas-body .nav-link i {
-  margin-right: 10px;
-  width: 1.25em; /* Garante que os ícones fiquem alinhados */
-  color: #198754; /* Cor dos ícones */
+/* Corpo do Menu */
+.sk-offcanvas .offcanvas-body {
+  background: linear-gradient(180deg, #BFD8B2 0%, #d4e8cc 100%);
+  padding: 1.5rem 0;
 }
 
-/* Efeito Hover */
-.offcanvas-body .nav-link:hover {
-  background-color: #e2efdd; /* Fundo mais claro ao passar o mouse */
-  color: #198754; /* Texto verde ao passar o mouse */
+/* Links do Menu */
+.sk-offcanvas .nav-link {
+  color: #2a3d1a !important; /* Garante a cor escura do texto */
+  font-weight: 600;
+  padding: 0.85rem 1.5rem;
+  border-radius: 8px;
+  margin: 0.25rem 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+  border: none; /* Remove bordas antigas */
 }
 
-/* Cabeçalho de Categorias */
-.category-header {
-  padding: 10px 15px 5px;
-  font-weight: bold;
-  color: #198754; /* Cor verde para títulos de seção */
+/* Ícones dos Links */
+.sk-offcanvas .nav-link i {
+  font-size: 1.1rem;
+  width: 24px;
+  text-align: center;
+  transition: transform 0.3s ease;
+  color: inherit;
+}
+
+/* Efeito da barra lateral verde ao passar o mouse */
+.sk-offcanvas .nav-link::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 4px;
+  background: var(--skoob-red);
+  transform: scaleY(0);
+  transition: transform 0.3s ease;
+}
+
+/* Estado Hover (Passar o mouse) */
+.sk-offcanvas .nav-link:hover {
+  background: rgba(62, 83, 39, 0.12);
+  color: var(--skoob-red) !important;
+  transform: translateX(4px);
+}
+
+.sk-offcanvas .nav-link:hover::before {
+  transform: scaleY(1);
+}
+
+.sk-offcanvas .nav-link:hover i {
+  transform: scale(1.15);
+}
+
+/* Títulos das Seções (Categorias) */
+.offcanvas-section-title {
+  color: #2a3d1a;
+  font-weight: 700;
+  font-size: 0.75rem;
   text-transform: uppercase;
-  font-size: 0.85rem;
-  margin-top: 10px;
+  letter-spacing: 1px;
+  padding: 1rem 1.5rem 0.5rem;
+  margin-top: 0.5rem;
+  opacity: 0.7;
 }
 
-/* Ajuste da linha divisória */
-.offcanvas-body hr {
-  border-color: rgba(0, 0, 0, 0.1);
-  margin: 15px 0;
+/* Linha divisória */
+.offcanvas-divider {
+  border: 0;
+  height: 1px;
+  background: rgba(62, 83, 39, 0.15);
+  margin: 1rem 1.5rem;
+  opacity: 1;
+}
+
+/* Links de Categoria (Efeito da setinha) */
+.category-link {
+  position: relative;
+}
+
+.category-link::after {
+  content: '→';
+  position: absolute;
+  right: 1.5rem;
+  opacity: 0;
+  transform: translateX(-10px);
+  transition: all 0.3s ease;
+}
+
+.category-link:hover::after {
+  opacity: 1;
+  transform: translateX(0);
 }
