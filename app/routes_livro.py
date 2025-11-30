@@ -2,7 +2,6 @@ from flask import Blueprint, render_template, session, redirect, url_for, flash,
 from .models import Livro, Estante
 from .database import db
 
-
 bp_livro = Blueprint("livro", __name__, url_prefix="/livros")
 
 @bp_livro.route("/")
@@ -52,7 +51,16 @@ def adicionar_estante_ajax(livro_id):
 @bp_livro.route("/livraria")
 def livraria():
     livros_db = Livro.query.all()
-    
+
+    if "usuario_id" not in session:
+        flash("Você precisa estar logado.", "danger")
+        return redirect(url_for("main.index"))
+
+    usuario = {
+        'apelido': session.get('apelido'),
+        'id': session.get('user_id')
+    }
+
     lista_livros_js = []
     
     for livro in livros_db:
@@ -75,4 +83,10 @@ def livraria():
         }
         lista_livros_js.append(item)
 
-    return render_template("livraria.html", dados_livros=lista_livros_js)
+    return render_template("livraria.html", dados_livros=lista_livros_js, usuario=usuario)
+
+@bp_livro.route('/logout')
+def logout():
+    session.clear()
+    
+    return redirect(url_for('main.home'))

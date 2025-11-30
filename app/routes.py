@@ -20,6 +20,7 @@ def login():
         session.clear()
         
         session["usuario_id"] = usuario.id
+        session['apelido'] = usuario.apelido 
         
         session.permanent = True 
         

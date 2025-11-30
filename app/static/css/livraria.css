@@ -4,6 +4,39 @@
       --muted:#6c757d;
       --bg:#ebf8e9;
     }
+
+    
+#nomeuser {
+  color: #60c969;
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, Trebuchet MS, sans-serif;
+  transition: 0.3s ease;
+}
+
+/* Pulso único no hover */
+#nomeuser:hover {
+  animation: pulsar 0.8s ease-in-out 1; /* Apenas 1 vez */
+  cursor: pointer;
+}
+
+/* Animação do pulso */
+@keyframes pulsar {
+  0% {
+    text-shadow: 0 0 4px rgba(96, 201, 105, 0.5),
+                 0 0 8px rgba(96, 201, 105, 0.3);
+    transform: scale(1);
+  }
+  50% {
+    text-shadow: 0 0 12px rgba(96, 201, 105, 0.9),
+                 0 0 24px rgba(96, 201, 105, 0.6);
+    transform: scale(1.08);
+  }
+  100% {
+    text-shadow: 0 0 4px rgba(96, 201, 105, 0.5),
+                 0 0 8px rgba(96, 201, 105, 0.3);
+    transform: scale(1);
+  }
+}
+
     html,body{height:100%;}
     body{
       font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
