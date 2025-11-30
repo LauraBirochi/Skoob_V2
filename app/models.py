@@ -1,4 +1,5 @@
 from .database import db
+from datetime import datetime
 
 class Usuario(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -42,3 +43,27 @@ class Estante(db.Model):
 
     def __repr__(self):
         return f"<Estante User:{self.usuario_id} Livro:{self.livro_id}>"
+
+class Resenha(db.Model):
+    __tablename__ = 'resenha'
+
+    id = db.Column(db.Integer, primary_key=True)
+    
+    # Quem escreveu?
+    usuario_id = db.Column(db.Integer, db.ForeignKey("usuario.id"), nullable=False)
+    
+    # Sobre qual livro?
+    livro_id = db.Column(db.Integer, db.ForeignKey("livro.id"), nullable=False)
+    
+    # Conteúdo da resenha
+    nota = db.Column(db.Integer, nullable=False)       # 1 a 5
+    texto = db.Column(db.Text, nullable=False)         # O comentário em si
+    progresso = db.Column(db.Integer, default=100)     # Porcentagem de leitura (0-100)
+    data = db.Column(db.DateTime, default=datetime.utcnow) # Data automática
+
+    # Relacionamentos para facilitar o acesso (resenha.livro.titulo, resenha.usuario.nome)
+    livro = db.relationship("Livro", backref=db.backref("resenhas", lazy=True))
+    usuario = db.relationship("Usuario", backref=db.backref("resenhas", lazy=True))
+
+    def __repr__(self):
+        return f"<Resenha User:{self.usuario_id} Livro:{self.livro_id}>"

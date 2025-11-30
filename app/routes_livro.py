@@ -1,6 +1,7 @@
 from flask import Blueprint, render_template, session, redirect, url_for, flash, jsonify, request
-from .models import Livro, Estante
+from .models import Livro, Estante, Resenha
 from .database import db
+from datetime import datetime
 
 bp_livro = Blueprint("livro", __name__, url_prefix="/livros")
 
@@ -250,7 +251,6 @@ def lendo():
 
     return render_template("em-leitura.html", books_data=livros_para_exibir)
 
-
 @bp_livro.route("/proximos")
 def proximos():
     # 1. Proteção de Login
@@ -287,7 +287,97 @@ def proximos():
 
     return render_template("proximos-livros.html", books_data=livros_para_exibir)
 
-
 @bp_livro.route("/resenhas")
 def resenhas():
-    return render_template("minhas-resenhas.html")
+    usuario_id = session.get("usuario_id")
+    if not usuario_id:
+        flash("Faça login para ver suas resenhas.", "warning")
+        return redirect(url_for("main.index"))
+
+    # 1. Busca resenhas existentes
+    minhas_resenhas = Resenha.query.filter_by(usuario_id=usuario_id).order_by(Resenha.data.desc()).all()
+    
+    lista_resenhas = []
+    # Lista de IDs de livros que já têm resenha (para filtrar depois se quiser)
+    livros_com_resenha = set() 
+
+    for r in minhas_resenhas:
+        livros_com_resenha.add(r.livro_id)
+        lista_resenhas.append({
+            "id": r.id,
+            "livro_id": r.livro_id, # <--- ADICIONADO: Essencial para editar
+            "bookTitle": r.livro.titulo,
+            "bookAuthor": r.livro.autor,
+            "rating": r.nota,
+            "progress": r.progresso,
+            "text": r.texto,
+            "date": r.data.strftime("%d/%m/%Y")
+        })
+
+    # 2. Busca livros "Lidos" para novas resenhas
+    livros_lidos = Estante.query.filter_by(usuario_id=usuario_id, status="Lido").all()
+    
+    lista_livros_para_resenhar = []
+    for item in livros_lidos:
+        # Só mostra na lista de "Nova Resenha" se ainda NÃO tiver resenha
+        if item.livro and item.livro.id not in livros_com_resenha:
+            nome_capa = item.livro.capa if item.livro.capa else 'capa-padrao.jpg'
+            
+            lista_livros_para_resenhar.append({
+                "id": item.livro.id,
+                "title": item.livro.titulo,
+                "author": item.livro.autor,
+                "cover": url_for('static', filename=f'images/{nome_capa}'),
+                "rating": float(item.livro.nota) if item.livro.nota else 0.0
+            })
+
+    return render_template("minhas-resenhas.html", 
+                         reviews_data=lista_resenhas, 
+                         books_data=lista_livros_para_resenhar)
+
+
+
+# --- ROTA DE SALVAR INTELIGENTE (Cria ou Edita) ---
+@bp_livro.route("/salvar_resenha", methods=['POST'])
+def salvar_resenha():
+    def salvar_resenha():
+     if "usuario_id" not in session:
+        return jsonify({"ok": False, "mensagem": "Login expirado"}), 401
+
+    data = request.get_json()
+    usuario_id = session["usuario_id"]
+    livro_id = int(data.get('livro_id'))
+
+    if not livro_id or not data.get('texto'):
+        return jsonify({"ok": False, "mensagem": "Dados incompletos"}), 400
+
+    try:
+        # Verifica se JÁ EXISTE uma resenha deste usuário para este livro
+        resenha_existente = Resenha.query.filter_by(usuario_id=usuario_id, livro_id=livro_id).first()
+
+        if resenha_existente:
+            # ATUALIZA (EDITAR)
+            resenha_existente.nota = int(data['nota'])
+            resenha_existente.texto = data['texto']
+            resenha_existente.progresso = int(data['progresso'])
+            resenha_existente.data = datetime.utcnow() # Atualiza a data para agora
+            mensagem = "Resenha atualizada com sucesso!"
+        else:
+            # CRIA NOVA
+            nova_resenha = Resenha(
+                usuario_id=usuario_id,
+                livro_id=livro_id,
+                nota=int(data['nota']),
+                texto=data['texto'],
+                progresso=int(data['progresso'])
+            )
+            db.session.add(nova_resenha)
+            mensagem = "Resenha publicada com sucesso!"
+        
+        db.session.commit()
+        return jsonify({"ok": True, "mensagem": mensagem}), 200
+        
+    except Exception as e:
+        db.session.rollback()
+        print(f"Erro: {e}")
+        return jsonify({"ok": False, "mensagem": "Erro ao salvar."}), 500

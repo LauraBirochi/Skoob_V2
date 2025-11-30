@@ -6,16 +6,13 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Minhas Resenhas • Skoob</title>
 
- 
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/css/bootstrap.min.css" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css2?family=Momo+Signature&family=Playwrite+HU:wght@100..400&display=swap"rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Playwrite+US+Trad+Guides&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Momo+Signature&family=Playwrite+HU:wght@100..400&display=swap" rel="stylesheet">
 
   <link rel="stylesheet" href="{{ url_for('static', filename='css/style-livraria.css') }}">
   <link rel="stylesheet" href="{{ url_for('static', filename='css/style-perfil.css') }}">
-
 </head>
 
 <body>
@@ -27,13 +24,8 @@
           <i class="fas fa-bars"></i>
         </button>
       </div>
-
       <div class="center-logo" aria-hidden="true">
-        <img src="{{ url_for('static', filename='images/skoob-amor-verao.png') }}" width="200" alt="Skoob Logo">
-      </div>
-
-      <div class="ms-auto nav-right d-flex align-items-center">
-
+        <img src="{{ url_for('static', filename='images/skoob.png') }}" width="200" alt="Skoob Logo">
       </div>
     </div>
   </header>
@@ -42,105 +34,98 @@
     <div class="offcanvas-header">
       <button type="button" class="btn-close" data-bs-dismiss="offcanvas"></button>
     </div>
-
     <div class="offcanvas-body">
       <nav class="nav flex-column">
-      <a class="nav-link" href="{{ url_for('main.home') }}"><i class="fas fa-home"></i>Inicio</a>
-      <a class="nav-link"><i class="fas fa-user"></i>Perfil</a>
-      <a class="nav-link"><i class="fas fa-book"></i>Minha Estante</a>
-      <a class="nav-link" href="{{ url_for('livro.logout') }}"><i class="fas fa-door-open"></i>Sair</a>
-
+        <a class="nav-link" href="{{ url_for('main.home') }}"><i class="fas fa-home"></i>Inicio</a>
+        <a class="nav-link"><i class="fas fa-user"></i>Perfil</a>
+        <a class="nav-link" href="{{ url_for('livro.minhaestante') }}"><i class="fas fa-book"></i>Minha Estante</a>
+        <a class="nav-link" href="{{ url_for('livro.logout') }}"><i class="fas fa-door-open"></i>Sair</a>
         <hr>
-
         <div class="category-header">Categorias</div>
-      <a class="nav-link" href="{{ url_for('livro.livraria', _anchor='carouselSuspense') }}"><i class="fas fa-mask"></i>Suspense</a>
-      <a class="nav-link" href="{{ url_for('livro.livraria', _anchor='carouselRomance') }}"><i class="fas fa-heart"></i>Romance</a>
-      <a class="nav-link" href="{{ url_for('livro.livraria', _anchor='carouselFantasia') }}"><i class="fas fa-dragon"></i>Fantasia</a>
+        <a class="nav-link" href="{{ url_for('livro.livraria') }}"><i class="fas fa-mask"></i>Suspense</a>
+        <a class="nav-link" href="{{ url_for('livro.livraria') }}"><i class="fas fa-heart"></i>Romance</a>
+        <a class="nav-link" href="{{ url_for('livro.livraria') }}"><i class="fas fa-dragon"></i>Fantasia</a>
       </nav>
     </div>
   </div>
 
   <main class="hero-band">
     <div class="container page-container">
-
-      <!-- TÍTULO FORA DO QUADRADO -->
       <div class="row align-items-center mb-3">
         <div class="col-md-12 text-center">
-          <h2>Minha Resenhas</h2>
-          <p class="text-muted">Confira as resenhas e opniões dos livros lidos.</p>
+          <h2>Minhas Resenhas</h2>
+          <p class="text-muted">Opiniões sobre os livros que já li.</p>
         </div>
       </div>
 
       <div class="profile-layout">
-
-        <!-- MENU LATERAL (FORA DO QUADRADO) -->
         <aside class="navigation-menu">
           <nav class="nav-menu-list">
             <a href="{{ url_for('livro.minhaestante') }}" class="nav-menu-item">
-              <i class="fas fa-book"></i>
-              <span>Minha Estante</span>
+              <i class="fas fa-book"></i><span>Minha Estante</span>
             </a>
             <a href="{{ url_for('livro.lidos') }}" class="nav-menu-item">
-              <i class="fas fa-check-circle"></i>
-              <span>Livros Lidos</span>
+              <i class="fas fa-check-circle"></i><span>Livros Lidos</span>
             </a>
             <a href="{{ url_for('livro.lendo') }}" class="nav-menu-item">
-              <i class="fas fa-book-reader"></i>
-              <span>Em Leitura</span>
+              <i class="fas fa-book-reader"></i><span>Em Leitura</span>
             </a>
             <a href="{{ url_for('livro.proximos') }}" class="nav-menu-item">
-              <i class="fas fa-bookmark"></i>
-              <span>Próximos Livros</span>
+              <i class="fas fa-bookmark"></i><span>Próximos Livros</span>
             </a>
-            <a href="{{ url_for('livro.resenhas') }}" class="nav-menu-item">
-              <i class="fas fa-pen-fancy"></i>
-              <span>Minhas Resenhas</span>
+            <a href="{{ url_for('livro.resenhas') }}" class="nav-menu-item active">
+              <i class="fas fa-pen-fancy"></i><span>Minhas Resenhas</span>
             </a>
           </nav>
         </aside>
-        <!-- QUADRADO BRANCO SOMENTE NA ÁREA DOS LIVROS -->
+
         <div class="profile-content">
           <div class="content-section">
-
-            <div id="reviewsContainer" class="reviews-grid">
-              <!-- Resenhas serão carregadas aqui -->
+            
+            <!-- LISTA DE RESENHAS FEITAS -->
+            <h5 class="mb-3 border-bottom pb-2">Histórico de Resenhas</h5>
+            <div id="reviewsContainer" class="reviews-grid mb-5">
+              <!-- Resenhas aqui -->
             </div>
+            <p id="noReviewsMsg" class="text-muted text-center p-3" style="display:none;">
+              Você ainda não escreveu nenhuma resenha.
+            </p>
 
-
-            <div class="books-grid" id="booksContainer">
-              <!-- Livros serão injetados aqui pelo backend -->
+            <!-- LISTA DE LIVROS DISPONÍVEIS (SEM RESENHA) -->
+            <h5 class="mb-3 border-bottom pb-2 mt-5">Escrever Nova Resenha</h5>
+            <div class="books-grid" id="booksToReviewContainer">
+              <!-- Livros aqui -->
             </div>
-
-            <p class="text-muted text-center p-4" id="emptyMessage" style="display: none;">
-              Sua página de resenha está vazia. Adicione livros da livraria!
+            <p id="noBooksMsg" class="text-muted text-center p-3" style="display:none;">
+              Todos os seus livros lidos já foram resenhados!
             </p>
 
           </div>
         </div>
-
       </div>
-
     </div>
   </main>
 
-  <!-- Modal de resenha -->
+  <!-- Modal -->
   <div class="modal fade" id="reviewModal">
     <div class="modal-dialog modal-lg modal-dialog-centered">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title">Escrever Resenha</h5>
-          <button class="btn-close" data-bs-dismiss="modal"></button>
+          <h5 class="modal-title" id="modalTitleLabel">Escrever Resenha</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
         </div>
         <div class="modal-body">
           <form id="reviewForm">
             <input type="hidden" id="reviewBookId">
+            
             <div class="mb-3">
               <label class="form-label">Livro</label>
               <div class="input-group">
-                <input class="form-control" placeholder="Título" id="reviewBookTitle" required>
-                <input class="form-control" placeholder="Autor" id="reviewBookAuthor" required>
+                <input class="form-control" id="reviewBookTitle" readonly style="background-color: #f8f9fa;">
+                <input class="form-control" id="reviewBookAuthor" readonly style="background-color: #f8f9fa;">
               </div>
             </div>
+            
             <div class="row">
               <div class="col-md-6 mb-3">
                 <label class="form-label">Sua Nota</label>
@@ -153,18 +138,18 @@
                 </select>
               </div>
               <div class="col-md-6 mb-3">
-                <label class="form-label">Progresso de Leitura: <span id="progressValue">100</span>%</label>
-                <input type="range" class="form-range" id="reviewProgressPercent" min="0" max="100" step="1"
-                  value="100">
+                <label class="form-label">Progresso: <span id="progressValue">100</span>%</label>
+                <input type="range" class="form-range" id="reviewProgressPercent" min="0" max="100" step="5" value="100">
               </div>
             </div>
+            
             <div class="mb-3">
-              <label class="form-label">Sua Resenha</label>
-              <textarea class="form-control" id="reviewText" rows="6"
-                placeholder="Compartilhe suas impressões sobre o livro..." required></textarea>
+              <label class="form-label">Sua Opinião</label>
+              <textarea class="form-control" id="reviewText" rows="5" placeholder="O que você achou?" required></textarea>
             </div>
+            
             <button class="btn btn-success w-100" type="submit" id="submitReviewBtn">
-              Publicar Resenha
+              Salvar Resenha
             </button>
           </form>
         </div>
@@ -173,119 +158,193 @@
   </div>
 
   <footer class="sk-footer">
-    <div class="container">
-      © 2025 Skoob — Estante de Livros<br>
-      <small>Laura & Maria • Todos os direitos reservados</small>
-    </div>
+    <div class="container">© 2025 Skoob — Estante de Livros</div>
   </footer>
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.bundle.min.js"></script>
 
-  <script>
-    // Mock data - será substituído por dados do backend
-    const mockReviews = [
-      {
-        id: 1,
-        bookTitle: "Jantar Secreto",
-        bookAuthor: "Raphael Montes",
-        rating: 5,
-        progress: 100,
-        text: "Um dos melhores suspenses que já li! A narrativa é envolvente e perturbadora ao mesmo tempo. Raphael Montes consegue criar uma atmosfera de tensão constante que prende o leitor do início ao fim.",
-        date: "15 de Janeiro, 2025"
-      },
-      {
-        id: 2,
-        bookTitle: "Abaixo de Zero",
-        bookAuthor: "Ali Hazelwood",
-        rating: 4,
-        progress: 80,
-        text: "Romance científico muito bem escrito. Ainda estou lendo, mas já posso dizer que vale muito a pena. Os personagens são cativantes e a química entre eles é palpável.",
-        date: "10 de Janeiro, 2025"
-      }
-    ];
+  <!-- DADOS PYTHON -->
+  <script id="reviews-json" type="application/json">{{ reviews_data | tojson }}</script>
+  <script id="books-json" type="application/json">{{ books_data | tojson }}</script>
 
-    // Função para renderizar as resenhas
+  <script>
+    const reviewsData = JSON.parse(document.getElementById('reviews-json').textContent);
+    const booksData = JSON.parse(document.getElementById('books-json').textContent);
+
+    document.addEventListener('DOMContentLoaded', () => {
+      renderReviews(reviewsData);
+      renderBooksToReview(booksData);
+      setupModalLogic();
+    });
+
+    // RENDERIZAR RESENHAS (COM BOTÃO DE EDITAR)
     function renderReviews(reviews) {
       const container = document.getElementById('reviewsContainer');
-      const emptyMsg = document.getElementById('emptyMessage');
-
+      
       if (!reviews || reviews.length === 0) {
-        container.innerHTML = '';
-        emptyMsg.style.display = 'block';
+        document.getElementById('noReviewsMsg').style.display = 'block';
         return;
       }
 
-      emptyMsg.style.display = 'none';
-      container.innerHTML = '';
-
       reviews.forEach(review => {
         const card = document.createElement('div');
-        card.className = 'review-card';
+        card.className = 'review-card position-relative'; // position-relative para o botão
+        
+        // Passamos os dados da resenha para o botão de editar via data-attributes
         card.innerHTML = `
-      <div class="review-header">
-        <div class="review-book-info">
-          <div class="review-book-title">${review.bookTitle}</div>
-          <div class="review-book-author">por ${review.bookAuthor}</div>
-          <div class="review-rating">${'★'.repeat(review.rating)}</div>
-          <div class="review-progress">
-            <div class="progress-bar-container">
-              <div class="progress-bar" style="width: ${review.progress}%"></div>
+          <div class="review-header">
+            <div class="review-book-info w-100">
+              <div class="d-flex justify-content-between align-items-start">
+                  <div>
+                    <div class="review-book-title fw-bold">${review.bookTitle}</div>
+                    <div class="review-book-author text-muted small">por ${review.bookAuthor}</div>
+                  </div>
+                  <div class="review-date text-muted small">${review.date}</div>
+              </div>
+              <div class="mt-2 d-flex align-items-center justify-content-between">
+                  <div class="d-flex gap-3 align-items-center">
+                      <div class="text-warning">${'★'.repeat(review.rating)}</div>
+                      <span class="badge bg-light text-dark border">${review.progress}% Lido</span>
+                  </div>
+                  
+                  <!-- BOTÃO EDITAR -->
+                  <button class="btn btn-sm btn-outline-primary btn-editar-resenha"
+                          data-livro-id="${review.livro_id}"
+                          data-titulo="${review.bookTitle}"
+                          data-autor="${review.bookAuthor}"
+                          data-nota="${review.rating}"
+                          data-texto="${review.text}"
+                          data-progresso="${review.progress}">
+                      <i class="fas fa-edit"></i> Editar
+                  </button>
+              </div>
             </div>
-            <span>${review.progress}% Completo</span>
           </div>
-        </div>
-      </div>
-      <p class="review-text">${review.text}</p>
-      <div class="review-date">${review.date}</div>
-    `;
+          <p class="review-text mt-3" style="white-space: pre-line;">${review.text}</p>
+        `;
         container.appendChild(card);
       });
     }
 
-    // Modal de nova resenha
-    document.addEventListener('DOMContentLoaded', function () {
-      // Renderiza resenhas mock
-      renderReviews(mockReviews);
+    function renderBooksToReview(books) {
+      const container = document.getElementById('booksToReviewContainer');
+      
+      if (!books || books.length === 0) {
+        document.getElementById('noBooksMsg').style.display = 'block';
+        return;
+      }
 
-      const newReviewBtn = document.getElementById('newReviewBtn');
-      const reviewModalEl = document.getElementById('reviewModal');
+      books.forEach(book => {
+        const card = document.createElement('article');
+        card.className = 'book-card';
+        card.innerHTML = `
+          <img src="${book.cover}" class="cover" onerror="this.src='/static/images/capa-padrao.jpg'">
+          <div class="meta">
+            <div class="book-title">${book.title}</div>
+            <div class="book-author">${book.author}</div>
+          </div>
+          <div class="controls">
+            <button class="add-to-shelf w-100 btn-nova-resenha" 
+                    data-id="${book.id}" 
+                    data-title="${book.title}" 
+                    data-author="${book.author}">
+              <i class="fas fa-pen"></i> Escrever Resenha
+            </button>
+          </div>
+        `;
+        container.appendChild(card);
+      });
+    }
 
-      if (newReviewBtn && reviewModalEl) {
-        newReviewBtn.addEventListener('click', function (e) {
-          document.getElementById('reviewBookId').value = '';
-          document.getElementById('reviewBookTitle').value = '';
-          document.getElementById('reviewBookAuthor').value = '';
-          document.getElementById('reviewRating').value = "5";
-          document.getElementById('reviewProgressPercent').value = 100;
-          document.getElementById('progressValue').textContent = 100;
-          document.getElementById('reviewText').value = '';
+    function setupModalLogic() {
+        const modalEl = document.getElementById('reviewModal');
+        const modal = new bootstrap.Modal(modalEl);
+        const modalTitle = document.getElementById('modalTitleLabel');
+        const submitBtn = document.getElementById('submitReviewBtn');
 
-          const modal = new bootstrap.Modal(reviewModalEl);
-          modal.show();
+        // CLIQUE EM "ESCREVER NOVA"
+        document.addEventListener('click', (e) => {
+            if (e.target.closest('.btn-nova-resenha')) {
+                const btn = e.target.closest('.btn-nova-resenha');
+                abrirModal(
+                    btn.dataset.id, btn.dataset.title, btn.dataset.author, 
+                    "5", "", "100", "Publicar Nova Resenha", "Publicar"
+                );
+                modal.show();
+            }
         });
-      }
 
-      // Atualiza label de progresso quando range mudar
-      const range = document.getElementById('reviewProgressPercent');
-      const lbl = document.getElementById('progressValue');
-      if (range && lbl) {
-        range.addEventListener('input', () => lbl.textContent = range.value);
-      }
-
-      // Submit do formulário
-      const form = document.getElementById('reviewForm');
-      if (form) {
-        form.addEventListener('submit', (e) => {
-          e.preventDefault();
-          // Aqui será a chamada ao backend
-          console.log('[v0] Publicando resenha...');
-          alert('Resenha publicada com sucesso!');
-          bootstrap.Modal.getInstance(reviewModalEl).hide();
+        // CLIQUE EM "EDITAR"
+        document.addEventListener('click', (e) => {
+            if (e.target.closest('.btn-editar-resenha')) {
+                const btn = e.target.closest('.btn-editar-resenha');
+                abrirModal(
+                    btn.dataset.livroId, btn.dataset.titulo, btn.dataset.autor, 
+                    btn.dataset.nota, btn.dataset.texto, btn.dataset.progresso,
+                    "Editar Resenha", "Salvar Alterações"
+                );
+                modal.show();
+            }
         });
-      }
-    });
+
+        function abrirModal(id, title, author, rating, text, progress, titleLabel, btnLabel) {
+            document.getElementById('reviewBookId').value = id;
+            document.getElementById('reviewBookTitle').value = title;
+            document.getElementById('reviewBookAuthor').value = author;
+            document.getElementById('reviewRating').value = rating;
+            document.getElementById('reviewText').value = text;
+            document.getElementById('reviewProgressPercent').value = progress;
+            document.getElementById('progressValue').textContent = progress;
+            
+            modalTitle.textContent = titleLabel;
+            submitBtn.innerText = btnLabel;
+        }
+
+        const range = document.getElementById('reviewProgressPercent');
+        range.addEventListener('input', () => {
+            document.getElementById('progressValue').textContent = range.value;
+        });
+
+        document.getElementById('reviewForm').addEventListener('submit', (e) => {
+            e.preventDefault();
+            
+            const btn = document.getElementById('submitReviewBtn');
+            const originalText = btn.innerText;
+            btn.innerText = "Salvando...";
+            btn.disabled = true;
+
+            const payload = {
+                livro_id: document.getElementById('reviewBookId').value,
+                nota: document.getElementById('reviewRating').value,
+                texto: document.getElementById('reviewText').value,
+                progresso: document.getElementById('reviewProgressPercent').value
+            };
+
+            fetch('/livros/salvar_resenha', {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify(payload)
+            })
+            .then(r => r.json())
+            .then(data => {
+                if (data.ok) {
+                    alert(data.mensagem);
+                    window.location.reload(); 
+                } else {
+                    alert("Erro: " + data.mensagem);
+                    btn.innerText = originalText;
+                    btn.disabled = false;
+                }
+            })
+            .catch(err => {
+                console.error(err);
+                alert("Erro de conexão.");
+                btn.innerText = originalText;
+                btn.disabled = false;
+            });
+        });
+    }
   </script>
 
 </body>
-
 </html>
