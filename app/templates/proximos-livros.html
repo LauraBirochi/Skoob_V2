@@ -5,8 +5,6 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Próximos Livros • Skoob</title>
-
-
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -14,11 +12,10 @@
   <link href="https://fonts.googleapis.com/css2?family=Momo+Signature&family=Playwrite+HU:wght@100..400&display=swap"
     rel="stylesheet">
 
-  <link rel="stylesheet" href="style-livraria.css">
-  <link rel="stylesheet" href="style-perfil.css">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style-livraria.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style-perfil.css') }}">
 
 </head>
-
 <body>
 
   <header class="sk-header">
@@ -30,7 +27,7 @@
       </div>
 
       <div class="center-logo" aria-hidden="true">
-        <img src="./imgs/skoob-amor-verao.png" alt="Skoob logo">
+        <img src="{{ url_for('static', filename='images/skoob-amor-verao.png') }}" width="200" alt="Skoob Logo">
       </div>
 
       <div class="ms-auto nav-right d-flex align-items-center">
@@ -49,16 +46,16 @@
 
     <div class="offcanvas-body">
       <nav class="nav flex-column">
-        <a class="nav-link" href="livraria.html"><i class="fas fa-home"></i>Estante Virtual</a>
-        <a class="nav-link" href="perfil.html"><i class="fas fa-user"></i>Perfil</a>
-        <a class="nav-link" href="minha-estante.html"><i class="fas fa-book"></i>Minha Estante</a>
-
+      <a class="nav-link" href="{{ url_for('main.home') }}"><i class="fas fa-home"></i>Inicio</a>
+      <a class="nav-link"><i class="fas fa-user"></i>Perfil</a>
+      <a class="nav-link" href="{{ url_for('livro.minhaestante') }}"><i class="fas fa-book"></i>Minha Estante</a>
+      <a class="nav-link" href="{{ url_for('livro.logout') }}"><i class="fas fa-door-open"></i>Sair</a>
         <hr>
 
         <div class="category-header">Categorias</div>
-        <a class="nav-link"><i class="fas fa-mask"></i>Suspense</a>
-        <a class="nav-link"><i class="fas fa-heart"></i>Romance</a>
-        <a class="nav-link"><i class="fas fa-dragon"></i>Fantasia</a>
+      <a class="nav-link" href="{{ url_for('livro.livraria', _anchor='carouselSuspense') }}"><i class="fas fa-mask"></i>Suspense</a>
+      <a class="nav-link" href="{{ url_for('livro.livraria', _anchor='carouselRomance') }}"><i class="fas fa-heart"></i>Romance</a>
+      <a class="nav-link" href="{{ url_for('livro.livraria', _anchor='carouselFantasia') }}"><i class="fas fa-dragon"></i>Fantasia</a>
       </nav>
     </div>
   </div>
@@ -79,23 +76,23 @@
         <!-- MENU LATERAL (FORA DO QUADRADO) -->
         <aside class="navigation-menu">
           <nav class="nav-menu-list">
-            <a href="minha-estante.html" class="nav-menu-item ">
+            <a href="{{ url_for('livro.minhaestante') }}" class="nav-menu-item">
               <i class="fas fa-book"></i>
               <span>Minha Estante</span>
             </a>
-            <a href="livros-lidos.html" class="nav-menu-item">
+            <a href="{{ url_for('livro.lidos') }}" class="nav-menu-item">
               <i class="fas fa-check-circle"></i>
               <span>Livros Lidos</span>
             </a>
-            <a href="em-leitura.html" class="nav-menu-item">
+            <a href="{{ url_for('livro.lendo') }}" class="nav-menu-item">
               <i class="fas fa-book-reader"></i>
               <span>Em Leitura</span>
             </a>
-            <a href="proximos-livros.html" class="nav-menu-item">
+            <a href="{{ url_for('livro.proximos') }}" class="nav-menu-item">
               <i class="fas fa-bookmark"></i>
               <span>Próximos Livros</span>
             </a>
-            <a href="minhas-resenhas.html" class="nav-menu-item">
+            <a href="{{ url_for('livro.resenhas') }}" class="nav-menu-item">
               <i class="fas fa-pen-fancy"></i>
               <span>Minhas Resenhas</span>
             </a>
@@ -153,15 +150,15 @@
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.bundle.min.js"></script>
 
-  <script>
-    // Mock data - será substituído por dados do backend
-    const mockBooks = [
-      { id: 1, title: "Uma Família Feliz", author: "Raphael Montes", rating: 4.4, cover: "./imgs/uma familia feliz.jpg", pages: 272, synopsis: "Suspense psicológico envolvente." },
-      { id: 2, title: "Odeio Te Amar", author: "Ali Hazelwood", rating: 4.5, cover: "./imgs/odeio-te-amar.jpg", pages: 384, synopsis: "Romance enemies to lovers." },
-      { id: 3, title: "O Feiticeiro de TerraMar", author: "Ursula K. Le Guin", rating: 4.8, cover: "./imgs/feiticeiro-do-mar.jpg", pages: 256, synopsis: "Fantasia clássica sobre um jovem feiticeiro." }
-    ];
+  <script id="my-books-json" type="application/json">
+    {{ books_data | tojson }}
+  </script>
 
-    // Função para renderizar os cards de livros
+  <script>
+    // 1. Lê os dados reais
+    const dadosBrutos = document.getElementById('my-books-json').textContent;
+    const myBooks = JSON.parse(dadosBrutos);
+
     function renderBooks(books) {
       const container = document.getElementById('booksContainer');
       const emptyMsg = document.getElementById('emptyMessage');
@@ -178,75 +175,137 @@
       books.forEach(book => {
         const card = document.createElement('article');
         card.className = 'book-card';
+        
         card.innerHTML = `
-      <img src="${book.cover}" alt="${book.title}" class="cover">
-      <div class="meta">
-        <div class="book-title">${book.title}</div>
-        <div class="book-author">por ${book.author}</div>
-        <div class="rating-sm">${'★'.repeat(Math.round(book.rating))} <small class="text-muted">(${book.rating})</small></div>
-      </div>
-       <div class="controls">
-  <button class="add-to-shelf view-info">Ver Sobre</button>
-  <button class="add-to-shelf remove-book">Remover</button>
+          <img 
+            src="${book.cover}" 
+            alt="${book.title}" 
+            class="cover"
+            onerror="this.onerror=null; this.src='/static/images/capa-padrao.jpg';"
+          >
+          <div class="meta">
+            <div class="book-title">${book.title}</div>
+            <div class="book-author">por ${book.author}</div>
+            <div class="rating-sm">
+                ${'★'.repeat(Math.round(book.rating))} 
+                <small class="text-muted">(${book.rating.toFixed(1)})</small>
+            </div>
+          </div>
+          <div class="controls">
+            <button class="add-to-shelf view-info">Ver Sobre</button>
+            <a href="#" class="add-to-shelf remove-book" style="text-align:center; text-decoration:none;">Remover</a>
+            
+            <button class="add-to-shelf book-status-btn">Status</button>
+            <div class="status-popup">
+              <button class="status-option" data-status="Quero Ler">Quero ler</button>
+              <button class="status-option" data-status="Lendo">Em leitura</button>
+              <button class="status-option" data-status="Lido">Lidos</button>
+            </div>
+          </div>
+        `;
 
-  <button class="add-to-shelf book-status-btn">Status</button>
-
-  <div class="status-popup">
-    <button class="status-option" data-status="quero-ler">Quero ler</button>
-    <button class="status-option" data-status="em-leitura">Em leitura</button>
-    <button class="status-option" data-status="lido">Lidos</button>
-  </div>
-</div>
-
-    
-    `;
-
-
-        // Evento para ver detalhes
-        const viewBtn = card.querySelector('.view-info');
-        const statusBtn = card.querySelector('.book-status-btn');
-        const popup = card.querySelector('.status-popup');
-
-        statusBtn.addEventListener('click', (e) => {
-          e.stopPropagation();
-          popup.style.display = popup.style.display === 'block' ? 'none' : 'block';
-        });
-
-        // fechar ao clicar fora
-        document.addEventListener('click', () => {
-          popup.style.display = 'none';
-        });
-
-        viewBtn.addEventListener('click', (e) => {
+        // Eventos
+        card.querySelector('.view-info').addEventListener('click', (e) => {
           e.stopPropagation();
           openBookModal(book);
         });
 
+        card.querySelector('.remove-book').addEventListener('click', (e) => {
+          e.preventDefault();
+          e.stopPropagation();
+          if (confirm(`Remover "${book.title}" da lista?`)) {
+            removerDoBanco(book.estante_id, card);
+          }
+        });
 
+        // Popup Status
+        const statusBtn = card.querySelector('.book-status-btn');
+        const popup = card.querySelector('.status-popup');
+        statusBtn.addEventListener('click', (e) => {
+          e.stopPropagation();
+          document.querySelectorAll('.status-popup').forEach(p => { if(p !== popup) p.style.display = 'none'; });
+          popup.style.display = popup.style.display === 'block' ? 'none' : 'block';
+        });
+
+        // Mudar Status
+        const statusOptions = popup.querySelectorAll('.status-option');
+        statusOptions.forEach(option => {
+            option.addEventListener('click', (e) => {
+                e.stopPropagation();
+                const novoStatus = e.target.getAttribute('data-status');
+                alterarStatus(book.estante_id, novoStatus, card);
+                popup.style.display = 'none';
+            });
+        });
 
         container.appendChild(card);
       });
+
+      document.addEventListener('click', () => {
+        document.querySelectorAll('.status-popup').forEach(p => p.style.display = 'none');
+      });
     }
 
-    // Modal de detalhes do livro
-    const modal = new bootstrap.Modal(document.getElementById("bookModal"));
+    // AJAX: Remover
+    function removerDoBanco(estanteId, cardElement) {
+        fetch(`/livros/remover_estante/${estanteId}`, { method: 'DELETE' })
+        .then(r => r.json())
+        .then(data => {
+            if (data.ok) {
+                cardElement.remove();
+                if (document.getElementById('booksContainer').children.length === 0) 
+                    document.getElementById('emptyMessage').style.display = 'block';
+            } else {
+                alert("Erro: " + data.mensagem);
+            }
+        });
+    }
 
+    // AJAX: Alterar Status
+    function alterarStatus(estanteId, novoStatus, cardElement) {
+        fetch(`/livros/atualizar_status/${estanteId}`, {
+            method: 'PUT',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({ status: novoStatus })
+        })
+        .then(r => r.json())
+        .then(data => {
+            if(data.ok) {
+                // Se mudou para algo diferente de 'Quero Ler', remove da tela
+                if (novoStatus !== "Quero Ler") {
+                    cardElement.remove();
+                    if (document.getElementById('booksContainer').children.length === 0) 
+                        document.getElementById('emptyMessage').style.display = 'block';
+                    alert(`Iniciando leitura: "${novoStatus}"!`);
+                } else {
+                    alert("Status atualizado!");
+                }
+            } else {
+                alert("Erro: " + data.mensagem);
+            }
+        })
+        .catch(err => console.error(err));
+    }
+
+    // Modal
+    const modalEl = document.getElementById("bookModal");
+    const modal = modalEl ? new bootstrap.Modal(modalEl) : null;
     function openBookModal(book) {
+      if(!modal) return;
       document.getElementById("modalTitle").textContent = book.title;
       document.getElementById("modalAuthor").textContent = "por " + book.author;
-      document.getElementById("modalCover").src = book.cover;
-      document.getElementById("modalRating").innerHTML = '★'.repeat(Math.round(book.rating)) + ` (${book.rating})`;
-      document.getElementById("modalSynopsis").textContent = book.synopsis || "Sem sinopse disponível.";
-      document.getElementById("modalPages").textContent = book.pages ? `${book.pages} páginas` : "";
+      const img = document.getElementById("modalCover");
+      img.src = book.cover;
+      img.onerror = function() { this.src='/static/images/capa-padrao.jpg'; };
+      document.getElementById("modalRating").innerHTML = '★'.repeat(Math.round(book.rating));
+      document.getElementById("modalSynopsis").textContent = book.synopsis || "Sem sinopse.";
       modal.show();
     }
 
-    // Inicializa com dados mock (será substituído por fetch do backend)
     document.addEventListener('DOMContentLoaded', () => {
-      renderBooks(mockBooks);
+      renderBooks(myBooks);
     });
   </script>
 
 </body>
-
 </html>

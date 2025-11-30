@@ -27,13 +27,13 @@
 
     <!-- Logo centralizada -->
     <div class="navbar-center mx-auto">
-      <img src="{{ url_for('static', filename='images/skoob.png') }}" width="200" alt="Skoob Logo">
+      <img src="{{ url_for('static', filename='images/skoob-amor-verao.png') }}" width="1" alt="Skoob Logo">
     </div>
 
     <!-- Nome do usuário alinhado à direita -->
     <div class="ms-auto">
       {% if usuario %}
-      <a id="nomeuser" class="mb-0" >Olá, {{ usuario.apelido }}!</a>
+      <a id="nomeuser" class="mb-0 fw-bold" >Olá, {{ usuario.apelido }}!</a>
       {% endif %}
     </div>
 
@@ -61,7 +61,7 @@
           <i class="fas fa-user"></i>
           <span>Perfil</span>
         </a>
-        <a class="nav-link" href="#">
+        <a class="nav-link" href="{{ url_for('livro.minhaestante') }}">
           <i class="fas fa-book"></i>
           <span>Minha Estante</span>
         </a>

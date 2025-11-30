@@ -1,0 +1,305 @@
+    :root{
+      --skoob-red:#97B3AE;
+      --accent:#97B3AE;
+      --muted:#6c757d;
+      --bg:#f0e5e1;
+    }
+
+   
+#nomeuser {
+  color: white;
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, Trebuchet MS, sans-serif;
+  transition: 0.3s ease;
+}
+
+/* Pulso único no hover */
+#nomeuser:hover {
+  animation: pulsar 0.8s ease-in-out 1; /* Apenas 1 vez */
+  cursor: pointer;
+}
+
+    html,body{height:100%;}
+    body{
+      font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+      margin:0;
+      background: #f0e5e1;
+      color:#111;
+      display:flex;
+      flex-direction:column;
+      min-height:100vh;
+    }
+    .sk-offcanvas .offcanvas-header {
+      background: linear-gradient(135deg, #97B3AE 0%, #97B3AE 100%);
+      color: #fff;
+      padding: 1.5rem 1.25rem;
+      border-bottom: 3px solid #97B3AE;
+    }
+    .sk-offcanvas .offcanvas-title {
+      font-size: 1.4rem;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      color: black;
+    }
+    .sk-offcanvas .offcanvas-title::before {
+ 
+      font-family: "Font Awesome 6 Free";
+      font-weight: 900;
+      font-size: 1.3rem;
+      color: black;
+    }
+    .sk-offcanvas .offcanvas-body {
+      background: linear-gradient(180deg, #f0e5e1 0%, #f0e5e1 100%);
+      padding: 1.5rem 0;
+    }
+    .sk-offcanvas .nav-link {
+      color: black;
+      font-weight: 600;
+      padding: 0.9rem 1.5rem;
+      margin: 0.2rem 0;
+      border-left: 4px solid transparent;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      position: relative;
+    }
+    .sk-offcanvas .nav-link i {
+      width: 24px;
+      text-align: center;
+      color:  black;
+      font-size: 1.1rem;
+    }
+    .sk-offcanvas .nav-link:hover {
+      background: rgba(78, 99, 51, 0.12);
+      border-left-color: black;
+      color: black;
+      padding-left: 2rem;
+    }
+    .sk-offcanvas .nav-link:hover i {
+      color: black;
+      transform: scale(1.15);
+    }
+    .sk-offcanvas hr {
+      border-color: rgba(0, 0, 0, 0.25);
+      margin: 1rem 1.5rem;
+    }
+    .sk-offcanvas .category-header {
+      color: black;
+      font-weight: 700;
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      padding: 0.5rem 1.5rem;
+      margin-top: 0.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .sk-offcanvas .category-header::before {
+      content: "";
+      width: 20px;
+      height: 2px;
+      background: black;
+    }
+    .sk-offcanvas .btn-close {
+      filter: brightness(0) invert(1);
+      opacity: 0.9;
+    }
+.sk-header .btn-primary {
+  background-color: #97B3AE !important;
+  border-color: #97B3AE !important;
+  color: white !important;
+}
+
+
+
+    .sk-header{
+      background:#F2C3B9;
+      box-shadow: 0 1px 8px rgba(0,0,0,0.06);
+      padding: 0.75rem 0.75rem !important;
+    }
+    .sk-header .center-logo{ position:absolute; left:50%; transform:translateX(-50%); top:50%; transform: translate(-50%, -50%); pointer-events:none; }
+    .sk-header .center-logo img{ width:180px; max-width:45vw; pointer-events:none; }
+
+    .hero-band{
+      background: var(--bg);
+      padding:2.25rem 0 0.5rem;
+      position:relative;
+    }
+
+    .page-container{ position:relative; z-index:10; padding-top:1.2rem; }
+
+    .book-card{ border-radius:12px; overflow:hidden; border:1px solid #eee; background:#fff; position:relative; }
+    .book-card .cover{ width:100%; height:270px; object-fit:cover; display:block; }
+    .book-card .meta{ padding:0.75rem; text-align:center; }
+    .book-title{ font-weight:700; color:black; font-size:1.02rem; margin-bottom:0.25rem; }
+    .book-author{ color:var(--muted); font-size:0.9rem; margin-bottom:0.5rem; }
+    .rating-sm{ color:#f2d519; font-size:0.95rem; }
+
+    .books-grid{ 
+      display:grid; 
+      /* Força 6 colunas de tamanho igual (1fr), corrigindo a quebra */
+      grid-template-columns: repeat(6, 1fr); 
+      gap:1rem; 
+    }
+/* Corrige sobreposição dos slides */
+.carousel .carousel-item {
+  display: none;
+}
+
+.carousel .carousel-item.active {
+  display: block;
+}
+
+/* Garante que o grid aparece corretamente dentro de cada slide */
+.carousel .books-grid {
+  margin: 0;
+}
+
+
+    /* NOVOS ESTILOS PARA CORRIGIR O POSICIONAMENTO DAS SETAS */
+    /* 1. Adiciona padding horizontal ao carrossel para dar espaço às setas */
+    .carousel {
+        padding: 0 40px; /* Espaço para o botão de 40px em cada lado */
+    }
+
+    /* 2. Estilos para as Setas do Carrossel (Controles) */
+    .carousel-control-prev,
+    .carousel-control-next {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      height: 40px; 
+      width: 40px; 
+      background-color:#97B3AE ; /* Cor de fundo */
+      border-radius: 50%; /* Botão redondo */
+      opacity: 0.9;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+      transition: opacity 0.3s, transform 0.3s;
+    }
+
+    /* Posiciona a seta anterior no limite do padding (fora dos cards) */
+    .carousel-control-prev {
+      left: 0; 
+    }
+
+    /* Posiciona a seta próxima no limite do padding (fora dos cards) */
+    .carousel-control-next {
+      right: 0; 
+    }
+
+    /* Garante que o ícone da seta fique branco e visível */
+    .carousel-control-prev-icon,
+    .carousel-control-next-icon {
+      filter: brightness(0) invert(1);
+      width: 1rem;
+      height: 1rem;
+    }
+
+    .carousel-control-prev:hover,
+    .carousel-control-next:hover {
+        opacity: 1;
+        transform: translateY(-50%) scale(1.05);
+    }
+    /* FIM DOS NOVOS ESTILOS */
+
+
+    .sk-footer{ 
+      background:var(--accent); 
+      color:#fff; 
+      padding:1rem 0; 
+      margin-top:auto; text-align:center; }
+
+    .book-card:hover { transform: scale(1.02); box-shadow: 0 4px 12px rgba(0,0,0,0.15); }
+
+    .book-card::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.55);
+      opacity: 0;
+      transition: opacity 0.25s ease;
+      z-index: 1;
+    }
+
+    .book-card .controls {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      align-items: center;
+      opacity: 0;
+      z-index: 3;
+      transition: opacity 0.25s ease, transform 0.2s ease;
+      pointer-events: none;
+    }
+
+    .book-card .controls .add-to-shelf {
+      background-color: #97B3AE;
+      color: white;
+      border: none;
+      border-radius: 30px;
+      padding: 8px 18px;
+      font-weight: 600;
+      font-size: 0.9rem;
+      transform: translateY(6px);
+      transition: transform 0.15s ease;
+      pointer-events: auto;
+      white-space: nowrap;
+    }
+
+    .book-card .controls .view-info {
+      background-color: rgba(255,255,255,0.12);
+      color: #fff;
+      border: 1px solid rgba(255,255,255,0.18);
+    }
+
+    .book-card:hover::before { opacity: 1; }
+    .book-card:hover .controls { opacity: 1; transform: translate(-50%, -50%) scale(1.02); pointer-events:auto; }
+
+    .category-banner {
+      background-color: #97B3AE;
+      color: #ffffff;
+      font-weight: 700;
+      font-size: 2.4rem;
+      padding: 0.4rem 1rem;
+      border-left: 6px solid var(--skoob-red);
+      border-radius: 8px;
+      letter-spacing: 1px;
+      margin-bottom: 1rem;
+      width: 100%;
+      text-align: center;
+      margin: 2rem 0 1rem;
+      font-family: "Playwrite HU", cursive;
+      border-left: #D2E0D3;
+      
+    }
+  
+/* === CUSTOMIZAÇÃO DO FOOTER === */
+.sk-footer {
+  background-color: #D6CBBF;
+  color: rgb(0, 0, 0);
+  padding: 20px 0;
+  text-align: center;
+  margin-top: 80px;
+}
+
+/* Deixa o botão VER SOBRE igual aos outros */
+.ver-sobre {
+  background-color: #97B3AE !important;
+  border: none;
+  padding: 8px 14px;
+  border-radius: 8px;
+  color: white;
+  font-weight: 600;
+  display: inline-block;
+  text-decoration: none;
+}
+.ver-sobre:hover {
+  opacity: 0.9;
+}

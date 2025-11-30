@@ -19,7 +19,7 @@
 <!-- Suas fontes -->
 <link href="https://fonts.googleapis.com/css2?family=Momo+Signature&family=Playwrite+HU:wght@100..400&display=swap" rel="stylesheet">
 
-<link rel="stylesheet" href="{{ url_for('static', filename='css/livraria.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/style-livraria.css') }}">
 
 </head>
 
@@ -36,7 +36,7 @@
 
     <div class="center-logo" aria-hidden="true">
       <a href="{{ url_for('main.home') }}"> 
-        <img src="{{ url_for('static', filename='images/skoob.png') }}" width="200" alt="Skoob Logo">
+        <img src="{{ url_for('static', filename='images/skoob-amor-verao.png') }}" width="200" alt="Skoob Logo">
       </a>
     </div>
 
@@ -58,7 +58,7 @@
     <nav class="nav flex-column">
       <a class="nav-link" href="{{ url_for('main.home') }}"><i class="fas fa-home"></i>Inicio</a>
       <a class="nav-link"><i class="fas fa-user"></i>Perfil</a>
-      <a class="nav-link"><i class="fas fa-book"></i>Minha Estante</a>
+      <a class="nav-link" href="{{ url_for('livro.minhaestante') }}"><i class="fas fa-book"></i>Minha Estante</a>
       <a class="nav-link" href="{{ url_for('livro.logout') }}"><i class="fas fa-door-open"></i>Sair</a>
       <hr>
 

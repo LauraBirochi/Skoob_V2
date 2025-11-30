@@ -1,12 +1,13 @@
 body {
   margin: 0;
-  background-color: #e2efdd;
+  background-color: #f0e5e1;
 }
 
 #nomeuser {
-  color: #60c969;
+  color: white;
   font-family: 'Gill Sans', 'Gill Sans MT', Calibri, Trebuchet MS, sans-serif;
   transition: 0.3s ease;
+
 }
 
 /* Pulso único no hover */
@@ -15,24 +16,24 @@ body {
   cursor: pointer;
 }
 
-/* Animação do pulso */
+
 @keyframes pulsar {
   0% {
-    text-shadow: 0 0 4px rgba(96, 201, 105, 0.5),
-                 0 0 8px rgba(96, 201, 105, 0.3);
+    text-shadow: 0 0 4px rgba(245, 103, 129, 0.3),
+                 0 0 8px rgba(245, 103, 129, 0.3);
     transform: scale(1);
   }
   50% {
-    text-shadow: 0 0 12px rgba(96, 201, 105, 0.9),
-                 0 0 24px rgba(96, 201, 105, 0.6);
+    text-shadow: 0 0 12px rgba(245, 103, 129, 0.3),
+                 0 0 24px rgba(245, 103, 129, 0.3);
     transform: scale(1.08);
   }
   100% {
-    text-shadow: 0 0 4px rgba(96, 201, 105, 0.5),
-                 0 0 8px rgba(96, 201, 105, 0.3);
+    text-shadow: 0 0 4px rgba(245, 103, 129, 0.3),
+                 0 0 8px rgba(245, 103, 129, 0.3);
     transform: scale(1);
   }
-}
+} 
 
 body::-webkit-scrollbar {
   display: none; /* Chrome, Safari, Edge */
@@ -40,7 +41,7 @@ body::-webkit-scrollbar {
 
 .navbar {
   justify-content: space-between;
-  background-color: #b8f5bc;
+  background-color: #F2C3B9 !important;
 }
 
 .navbar-center {
@@ -50,21 +51,28 @@ body::-webkit-scrollbar {
 }
 
 .btn-outline-primary {
-    --bs-btn-color: #60c969;
-    --bs-btn-border-color: #60c969;
-    --bs-btn-hover-color: #fff;
-    --bs-btn-hover-bg: #60c969;
-    --bs-btn-hover-border-color: #60c969;
-    --bs-btn-focus-shadow-rgb: 13, 110, 253;
-    --bs-btn-active-color: #fff;
-    --bs-btn-active-bg: #60c969;
-    --bs-btn-active-border-color: #60c969;
-    --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
-    --bs-btn-disabled-color: #60c969;
+    --bs-btn-color: # !important;
+    --bs-btn-border-color: #97B3AE!important;
+    --bs-btn-hover-color: #97B3AE !important;
+    --bs-btn-hover-bg: #97B3AE !important;
+    --bs-btn-hover-border-color: #97B3AE !important;
+    /* --bs-btn-focus-shadow-rgb: 13, 110, 253; */
+    --bs-btn-active-color: #fff !important;
+    --bs-btn-active-bg: #97B3AE !important;
+    --bs-btn-active-border-color: #97B3AE !important;
+    /* --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125); */
+    --bs-btn-disabled-color: #97B3AE !important;
     --bs-btn-disabled-bg: transparent;
-    --bs-btn-disabled-border-color: #60c969;
+    --bs-btn-disabled-border-color: #97B3AE!important;
     --bs-gradient: none;
 }
+
+.btn:hover {
+    color: #97B3AE!important;
+    background-color: #97B3AE!important;
+    border-color: #97B3AE!important;
+}
+
 
 .nav-link {
     display: block;
@@ -82,8 +90,8 @@ body::-webkit-scrollbar {
   width: 100%;
   position: relative;
   bottom: 0;
-  background-color: #81cb98;
-  color: rgb(121, 160, 117);
+  background-color: #D6CBBF;
+  color: black;
   text-align: center;
   padding: 1rem 0;
 }
@@ -116,22 +124,23 @@ body::-webkit-scrollbar {
     font-size: 2.5rem;
 }
 
-/* Botão Quero Ler */
-.btn-primary {
+
+/*Botão Quero Ler*/
+.btn-primary{
   color: white;
-  background-color: #3E5327;
-  border-color: transparent;
+  background-color: #97B3AE;
+  border: 1px solid bisque;
 }
 
 .btn-primary:hover
 {
-  background-color: #3E5327;
+  background-color: #97B3AE;
   border-color: transparent;
 }
 
 .btn-primary:active
 {
-  background-color: #3E5327 !important;
+  background-color: #97B3AE !important;
   border-color: transparent !important;
 }
 
@@ -159,30 +168,28 @@ body::-webkit-scrollbar {
    ESTILO DO OFFCANVAS (IDÊNTICO AO LOGIN)
    ========================================= */
 /* Variável necessária para o efeito verde */
-:root {
-  --skoob-red: #3E5327;
-}
 
 /* Cabeçalho do Menu - TRAVADO PARA NÃO PULSAR */
 .sk-offcanvas .offcanvas-header {
-  background: linear-gradient(135deg, #4C6333 0%, #3E5327 100%);
+  background: linear-gradient(135deg, #97B3AE 0%, #97B3AE 100%);
   color: #fff;
   padding: 1.5rem;
-  border-bottom: 3px solid #BFD8B2;
+  border-bottom: 3px solid #97B3AE;
   
   /* Bloqueia animações e sombras no header */
   animation: none !important; 
   transition: none !important;
   box-shadow: none !important;
 }
-
 .sk-offcanvas .offcanvas-title {
-  font-weight: 700;
   font-size: 1.4rem;
-  letter-spacing: 0.5px;
-  animation: none !important; 
-  transition: none !important;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: black;
 }
+
 
 /* Botão Fechar (X) - REMOVIDO O BRILHO DE FOCO */
 .sk-offcanvas .btn-close {
@@ -207,13 +214,13 @@ body::-webkit-scrollbar {
 
 /* Corpo do Menu */
 .sk-offcanvas .offcanvas-body {
-  background: linear-gradient(180deg, #BFD8B2 0%, #d4e8cc 100%);
+  background: linear-gradient(180deg, #f0e5e1 0%, #f0e5e1 100%);
   padding: 1.5rem 0;
 }
 
 /* Links do Menu */
 .sk-offcanvas .nav-link {
-  color: #2a3d1a !important; /* Garante a cor escura do texto */
+  color: black !important; /* Garante a cor escura do texto */
   font-weight: 600;
   padding: 0.85rem 1.5rem;
   border-radius: 8px;
@@ -234,6 +241,7 @@ body::-webkit-scrollbar {
   text-align: center;
   transition: transform 0.3s ease;
   color: inherit;
+  color: black;
 }
 
 /* Efeito da barra lateral verde ao passar o mouse */
@@ -244,16 +252,16 @@ body::-webkit-scrollbar {
   top: 0;
   height: 100%;
   width: 4px;
-  background: var(--skoob-red);
+  background: black;
   transform: scaleY(0);
   transition: transform 0.3s ease;
 }
 
-/* Estado Hover (Passar o mouse) */
 .sk-offcanvas .nav-link:hover {
-  background: rgba(62, 83, 39, 0.12);
-  color: var(--skoob-red) !important;
-  transform: translateX(4px);
+  background: rgba(78, 99, 51, 0.12);
+  border-left-color: black;
+  color: black;
+  padding-left: 2rem;
 }
 
 .sk-offcanvas .nav-link:hover::before {
@@ -266,7 +274,7 @@ body::-webkit-scrollbar {
 
 /* Títulos das Seções (Categorias) */
 .offcanvas-section-title {
-  color: #2a3d1a;
+  color: black;
   font-weight: 700;
   font-size: 0.75rem;
   text-transform: uppercase;
@@ -303,3 +311,18 @@ body::-webkit-scrollbar {
   opacity: 1;
   transform: translateX(0);
 }
+
+.footer{
+  background-color: #D6CBBF !important;
+  color: black !important;
+}
+.container hr {
+    border-color: #97B3AE !important; /* exemplo: rosa */
+}
+/* Muda a cor do botão "Ver resultado" */
+.btn-success {
+    background-color: #f1a2b5 !important;  /* cor nova (rosa do seu tema) */
+    border-color: #f1a2b5 !important;
+    color: white !important;
+}
+
