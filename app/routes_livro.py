@@ -121,7 +121,7 @@ def minhaestante():
                 "status": item.status 
             })
 
-    return render_template("minha-estante.html", books_data=livros_para_exibir)
+    return render_template("minha-estante.html", books_data=livros_para_exibir, usuario_apelido=session.get("apelido"))
 
 @bp_livro.route("/remover_estante/<int:estante_id>", methods=['DELETE'])
 def remover_estante(estante_id):
