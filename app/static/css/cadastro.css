@@ -153,10 +153,17 @@
 
     /* HEADER */
     .sk-header{
-      background:#BFD8B2;
-      box-shadow: 0 1px 8px rgba(0,0,0,0.06);
-      padding:1.0rem 0.75rem;
-      position: relative;
+     
+    background:#BFD8B2;
+    box-shadow: 0 1px 8px rgba(0,0,0,0.06);
+    padding: 0.75rem 0.75rem !important;
+
+    position: fixed;     /* fixa no topo */
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 9999;      
+    
     }
 
     .sk-header .center-logo{

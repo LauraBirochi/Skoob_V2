@@ -38,11 +38,15 @@ body{
 
 /* === HEADER DAS PÁGINAS === */
 .sk-header {
-  /* Fundo rosado do topo */
-  background: #F2C3B9;
-  box-shadow: 0 1px 8px rgba(0, 0, 0, 0.06);
-  padding: 0.75rem 0.75rem !important;
-  position: relative;
+     background:#F2C3B9;
+    box-shadow: 0 1px 8px rgba(0,0,0,0.06);
+    padding: 0.75rem 0.75rem !important;
+
+    position: fixed;     /* fixa no topo */
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 9999;      
 }
 
 /* === MENU DE NAVEGAÇÃO LATERAL === */
@@ -451,4 +455,29 @@ body{
   background-color: #97B3AE !important;
   border-color: #97B3AE !important;
   color: white !important;
+}
+
+/* Botão "Escrever Resenha" igual ao botão do Remover */
+.btn-nova-resenha {
+  background-color: #97B3AE;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  padding: 8px 5px;
+  font-weight: 200px;
+  font-size: 0.9rem;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: opacity 0.25s ease, transform 0.15s ease;
+}
+
+/* Efeito igual ao botão Remover quando o mouse passa */
+.btn-nova-resenha:hover {
+  opacity: 0.85;
+  transform: scale(1.02);
+}
+
+/* Deixa o ícone com espacinho */
+.btn-nova-resenha i {
+  margin-right: 6px;
 }

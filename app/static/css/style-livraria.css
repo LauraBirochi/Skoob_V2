@@ -116,9 +116,15 @@
 
 
     .sk-header{
-      background:#F2C3B9;
-      box-shadow: 0 1px 8px rgba(0,0,0,0.06);
-      padding: 0.75rem 0.75rem !important;
+    background:#F2C3B9;
+    box-shadow: 0 1px 8px rgba(0,0,0,0.06);
+    padding: 0.75rem 0.75rem !important;
+
+    position: fixed;     /* fixa no topo */
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 9999;      
     }
     .sk-header .center-logo{ position:absolute; left:50%; transform:translateX(-50%); top:50%; transform: translate(-50%, -50%); pointer-events:none; }
     .sk-header .center-logo img{ width:180px; max-width:45vw; pointer-events:none; }
